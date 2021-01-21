@@ -1,1 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<web-app
+	version="3.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+	
+	<display-name>servlet-demo</display-name>
+	
+	<!-- registramos servlet -->
+	<servlet>
+		<servlet-name>servlet1</servlet-name>
+		<servlet-class>com.mitocode.servlets.BasicoServlet</servlet-class>
+	</servlet>
+	
+	<!-- mapeo url del servlet a exponer en el browser -->
+	<servlet-mapping>
+		<servlet-name>servlet1</servlet-name>
+		<url-pattern>*.do</url-pattern><!-- podriamos ejecutarlo desde la URL: http://localhost:8080/servlet-demo/loquesea.do -->
+	</servlet-mapping>
+</web-app>

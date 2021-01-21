@@ -6,4 +6,32 @@
   <packaging>war</packaging>
   <name>Demostración de servlet</name>
   <description>Ejemplo demo con servlet</description>
+  
+  <dependencies>
+  
+  	<!-- https://mvnrepository.com/artifact/javax/javaee-api - Se busca en google "java ee maven"-->
+	<dependency>
+	    <groupId>javax</groupId>
+	    <artifactId>javaee-api</artifactId>
+	    <version>8.0</version>
+	    <scope>provided</scope>
+	</dependency>
+	  	
+  </dependencies>
+  
+  <build>
+		<finalName>servlet-demo</finalName><!-- importante para que sea el nombre con el que se genera el artefacto y así sirva en la url -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+  
 </project>
