@@ -12,10 +12,19 @@
 		<servlet-name>servlet1</servlet-name>
 		<servlet-class>com.mitocode.servlets.BasicoServlet</servlet-class>
 	</servlet>
-	
 	<!-- mapeo url del servlet a exponer en el browser -->
 	<servlet-mapping>
 		<servlet-name>servlet1</servlet-name>
-		<url-pattern>*.do</url-pattern><!-- podriamos ejecutarlo desde la URL: http://localhost:8080/servlet-demo/loquesea.do -->
+		<url-pattern>*.do</url-pattern><!-- podriamos acceder desde la URL: http://localhost:8080/servlet-demo/loquesea.do -->
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>servlet2</servlet-name>
+		<servlet-class>com.mitocode.servlets.HttpSimpleServer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servlet2</servlet-name>
+		<url-pattern>*.mitocode</url-pattern><!-- podriamos acceder desde la URL: http://localhost:8080/servlet-demo/loquesea.mitocode -->
+	</servlet-mapping>
+	
 </web-app>
