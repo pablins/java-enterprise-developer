@@ -8,7 +8,8 @@
 </head>
 <body>
 
-	Hola de nuevo
+	<!-- Permite realizar la navegación entre un JSP a otro JSP o un JSP a un servlet -->
+	<jsp:forward page="/PersonaController?accion=LISTAR"></jsp:forward><!-- Realiza un llamado al por method GET -->
 
 </body>
 </html>

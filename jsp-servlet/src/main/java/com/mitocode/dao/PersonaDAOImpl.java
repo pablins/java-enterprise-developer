@@ -119,6 +119,9 @@ public class PersonaDAOImpl implements IPersonaDAO {
 				persona.setApellidos(resultSet.getString("apellidos"));
 			}
 			
+			resultSet.close();
+			preparedStatement.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
