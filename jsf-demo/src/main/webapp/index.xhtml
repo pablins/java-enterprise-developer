@@ -8,8 +8,10 @@
 <body>
 	<h:form>
 		<h:outputLabel value="Nombres" />
-		<h:inputText />
-		<h:commandButton value="Aceptar" />
+		<h:inputText value="#{ejemploBean.nombre}" />
+		<h:commandButton value="Aceptar" actionListener="#{ejemploBean.aceptar()}" />
+		
+		<h:outputLabel value="#{ejemploBean.saludo}" />
 	</h:form>
 
 </body> 
