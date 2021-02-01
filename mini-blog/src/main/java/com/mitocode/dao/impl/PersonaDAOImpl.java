@@ -1,5 +1,6 @@
 package com.mitocode.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mitocode.dao.IPersonaDAO;
@@ -8,8 +9,8 @@ import com.mitocode.model.Persona;
 public class PersonaDAOImpl implements IPersonaDAO {
 
 	public Integer registrar(Persona per) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Registrando a: " + per.getNombres());
+		return 1;
 	}
 
 	public Integer modificar(Persona per) throws Exception {
@@ -23,8 +24,19 @@ public class PersonaDAOImpl implements IPersonaDAO {
 	}
 
 	public List<Persona> listar() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Persona> lista = new ArrayList<>();
+		
+		Persona per = new Persona();
+		per.setIdPersona(1);
+		per.setNombres("Pablo");
+		lista.add(per);
+
+		per = new Persona();
+		per.setIdPersona(2);
+		per.setNombres("Code");
+		lista.add(per);
+		
+		return lista;
 	}
 
 	public Persona listarPorId(Persona per) throws Exception {

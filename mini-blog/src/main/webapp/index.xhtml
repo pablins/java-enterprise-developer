@@ -2,15 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
 <body> 
 
 	<h:form>
-		<h:outputLabel value="Nombre" />
-		<h:inputText />
-		<h:commandButton value="Aceptar"/>
+		<p:outputLabel value="Nombres"/>
+		<p:inputText value="#{personaBean.persona.nombres}"/>
+		<p:commandButton actionListener="#{personaBean.registrar()}" value="Registrar"/>
+		
+		<p:dataTable id="tblPersonas" value="#{personaBean.lista}" var="itemPersona">
+			<p:column headerText="ID">
+				<p:outputLabel value="#{itemPersona.idPersona}" />
+			</p:column>
+			<p:column headerText="NOMBRES">
+				<p:outputLabel value="#{itemPersona.nombres}" />
+			</p:column>
+		</p:dataTable>
 	</h:form>
 
 </body> 
