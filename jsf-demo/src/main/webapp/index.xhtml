@@ -2,16 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
 <body>
+	<!-- El h form no se cambia a p form dado que es una etiqueta que hace parte del framework y primeFaces sólo nos ayuda a componenetes visuales -->
 	<h:form>
-		<h:outputLabel value="Nombres" />
-		<h:inputText value="#{ejemploBean.nombre}" />
-		<h:commandButton value="Aceptar" actionListener="#{ejemploBean.aceptar()}" />
+		<p:outputLabel value="Nombres" />
+		<p:inputText value="#{ejemploBean.nombre}" />
+		<!-- Ahora será necesario indicar la porción de la página que queremos actualizar, dado que por default primefaces trabaja con AJAX -->
+		<p:commandButton value="Aceptar" actionListener="#{ejemploBean.aceptar()}" update="lblSaludo"/>
 		
-		<h:outputLabel value="#{ejemploBean.saludo}" />
+		<p:outputLabel id="lblSaludo" value="#{ejemploBean.saludo}" />
 	</h:form>
 
 </body> 

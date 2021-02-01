@@ -33,6 +33,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Dependenca de PrimeFaces (cuando se agregue lo mejor es tener el server abajo) -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
