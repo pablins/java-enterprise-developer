@@ -3,6 +3,7 @@ package com.mitocode.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,7 +29,12 @@ public class PersonaBean implements Serializable {
 		this.persona = new Persona();
 		//this.service = new PersonaServiceImpl();//Ya no es necesario usar el "new"
 		
-		listar();
+		//this.listar();//CDI no está disponible en la construcción del objeto, por tanto debemos usar el @PostConstruct para que se llame despues de que se ha construido el objeto
+	}
+	
+	@PostConstruct
+	public void init() {
+		this.listar();
 	}
 	
 	public void registrar() {
