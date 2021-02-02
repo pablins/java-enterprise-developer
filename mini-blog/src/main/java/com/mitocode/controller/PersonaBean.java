@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.mitocode.model.Persona;
@@ -14,15 +15,18 @@ import com.mitocode.service.impl.PersonaServiceImpl;
 @RequestScoped
 public class PersonaBean implements Serializable {
 	
+	//Inyección de dependencia - CDI
+	@Inject
 	private IPersonaService service;
 	
+	//Atributos de clase
 	private Persona persona;
 	
 	private List<Persona> lista;
 	
 	public PersonaBean() {
 		this.persona = new Persona();
-		this.service = new PersonaServiceImpl();
+		//this.service = new PersonaServiceImpl();//Ya no es necesario usar el "new"
 		
 		listar();
 	}

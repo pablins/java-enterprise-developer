@@ -3,9 +3,12 @@ package com.mitocode.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Named;
+
 import com.mitocode.dao.IPersonaDAO;
 import com.mitocode.model.Persona;
 
+@Named//Le indicamos a la clase que debe ser gestionada por el contenedor JEE
 public class PersonaDAOImpl implements IPersonaDAO {
 
 	public Integer registrar(Persona per) throws Exception {
