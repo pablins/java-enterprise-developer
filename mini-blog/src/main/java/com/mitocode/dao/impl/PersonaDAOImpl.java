@@ -4,17 +4,39 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
 import com.mitocode.dao.IPersonaDAO;
 import com.mitocode.model.Persona;
 
 @Named//Le indicamos a la clase que debe ser gestionada por el contenedor JEE
 public class PersonaDAOImpl implements IPersonaDAO, Serializable {
+	
+	private EntityManagerFactory emf;
+	private EntityManager em;
+	
+	@PostConstruct
+	public void init() {
+		emf = Persistence.createEntityManagerFactory("miniBlogPU");
+		em = emf.createEntityManager();
+	}
 
 	public Integer registrar(Persona per) throws Exception {
-		System.out.println("Registrando a: " + per.getNombres());
-		return 1;
+		try {
+			//necesitamos especificar la transacción debido a que no estamos manejando EJB
+			em.getTransaction().begin();
+			em.persist(per);
+			em.getTransaction().commit();
+		} catch(Exception e) {
+			em.getTransaction().rollback();
+		}
+		
+		return per.getIdPersona();
 	}
 
 	public Integer modificar(Persona per) throws Exception {
