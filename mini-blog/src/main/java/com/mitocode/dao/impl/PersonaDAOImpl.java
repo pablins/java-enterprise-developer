@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,9 +15,14 @@ import javax.persistence.PersistenceContext;
 import com.mitocode.dao.IPersonaDAO;
 import com.mitocode.model.Persona;
 
-@Named//Le indicamos a la clase que debe ser gestionada por el contenedor JEE
+//@Named//Le indicamos a la clase que debe ser gestionada por el contenedor JEE
+@Stateless//Es de una especificación mayor a JPA, es de EJB.
 public class PersonaDAOImpl implements IPersonaDAO, Serializable {
 	
+	@PersistenceContext(unitName = "miniBlogPU")
+	private EntityManager em;
+	
+	/*YA NO SERÍA NECESARIO ESTE CÓDIGO, DADO QUE HAREMOS USO DE EJB
 	private EntityManagerFactory emf;
 	private EntityManager em;
 	
@@ -25,15 +31,17 @@ public class PersonaDAOImpl implements IPersonaDAO, Serializable {
 		emf = Persistence.createEntityManagerFactory("miniBlogPU");
 		em = emf.createEntityManager();
 	}
+	*/
 
 	public Integer registrar(Persona per) throws Exception {
 		try {
 			//necesitamos especificar la transacción debido a que no estamos manejando EJB
-			em.getTransaction().begin();
+			//Las transacciones ya no son manuales sino que ahora son manejadas por el contenedor de EJB
+//			em.getTransaction().begin();
 			em.persist(per);
-			em.getTransaction().commit();
+//			em.getTransaction().commit();
 		} catch(Exception e) {
-			em.getTransaction().rollback();
+//			em.getTransaction().rollback();
 		}
 		
 		return per.getIdPersona();

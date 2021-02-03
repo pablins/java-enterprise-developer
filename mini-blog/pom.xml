@@ -36,12 +36,14 @@
 			<version>6.2</version>
 		</dependency>
 		
-		<!-- Se usa Postgresql 9.6 -->
+		<!-- NO ES NECESARIA SÍ SE USA DATASOURCE, DADO QUE EL SERVER SERÍA EL ENCARGADO DE LA CONEXIÓN
+		<!- - Se usa Postgresql 9.6 - ->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.4</version>
 		</dependency>
+		 -->
 
 	</dependencies>
 

@@ -3,6 +3,7 @@ package com.mitocode.service.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,7 +14,8 @@ import com.mitocode.service.IPersonaService;
 @Named
 public class PersonaServiceImpl implements IPersonaService, Serializable {
 	
-	@Inject//obtiene la instancia que está guardada en el contenedor JEE. Con esto ya no es necesario instanciar con el operador "new"
+	//@Inject//obtiene la instancia que está guardada en el contenedor JEE. Con esto ya no es necesario instanciar con el operador "new"
+	@EJB//Lo inyectamos con esta nueva anotación. Ahora representa mejor lo que hay en la capa DAO, es decir, un EJB
 	private IPersonaDAO dao;
 	
 	/*
