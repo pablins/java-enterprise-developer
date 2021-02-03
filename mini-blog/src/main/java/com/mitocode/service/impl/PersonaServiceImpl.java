@@ -1,5 +1,6 @@
 package com.mitocode.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,7 +11,7 @@ import com.mitocode.model.Persona;
 import com.mitocode.service.IPersonaService;
 
 @Named
-public class PersonaServiceImpl implements IPersonaService {
+public class PersonaServiceImpl implements IPersonaService, Serializable {
 	
 	@Inject//obtiene la instancia que está guardada en el contenedor JEE. Con esto ya no es necesario instanciar con el operador "new"
 	private IPersonaDAO dao;

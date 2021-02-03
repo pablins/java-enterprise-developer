@@ -1,5 +1,6 @@
 package com.mitocode.dao.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import com.mitocode.dao.IPersonaDAO;
 import com.mitocode.model.Persona;
 
 @Named//Le indicamos a la clase que debe ser gestionada por el contenedor JEE
-public class PersonaDAOImpl implements IPersonaDAO {
+public class PersonaDAOImpl implements IPersonaDAO, Serializable {
 
 	public Integer registrar(Persona per) throws Exception {
 		System.out.println("Registrando a: " + per.getNombres());

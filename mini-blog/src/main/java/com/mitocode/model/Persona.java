@@ -1,7 +1,19 @@
 package com.mitocode.model;
 
-public class Persona {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity//para indicarle que es una entidad de JPA
+@Table(name = "persona")//nombre de la tabla como se creará en la DB
+public class Persona implements Serializable {//las clases de entidad deben tener la capacidad de ser serializables 
 	
+	@Id//llave primaria
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//estrategia de generación autoincremental por cada inserción
 	private Integer idPersona;
 	
 	private String nombres;
