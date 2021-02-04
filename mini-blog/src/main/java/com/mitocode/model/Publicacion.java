@@ -32,7 +32,7 @@ public class Publicacion implements Serializable {//Esta es tambien conocida com
 
 	//Estos son utiles debido a que al insertar una publicación, se podría insertar la lista de tags y menciones al mismo tiempo
 	
-	@OneToMany(mappedBy="publicacion", 
+	@OneToMany(mappedBy="publicacion",//(Definición bidireccional)significa que en la entidad Tag existe un atributo llamado 'publicacion' que es el dueño de la relación y definio esta relación
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
 			fetch = FetchType.LAZY, //Carga peresoza, no traerá la lista de tags al consultar Publicación, sino hasta que el programador lo decida
 			orphanRemoval = true //permitirá eliminar algunos de sus hijos
@@ -40,7 +40,7 @@ public class Publicacion implements Serializable {//Esta es tambien conocida com
 	private List<Tag> tags;
 	
 	@OneToMany(
-			mappedBy="publicacion",
+			mappedBy="publicacion",//(Definición bidireccional)significa que en la entidad Mencion existe un atributo llamado 'publicacion' que es el dueño de la relación y definio esta relación
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
 			fetch = FetchType.LAZY, //Carga peresoza
 			orphanRemoval = true
