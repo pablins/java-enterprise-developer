@@ -13,26 +13,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuario_rol")
-@IdClass(UsuarioRolPK.class)
+//@IdClass(UsuarioRolPK.class)//Nos permite definir la clase que tendrá la definición de los campos compuestos
 public class UsuarioRol implements Serializable {
 
-	/*
+//	/*
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	*/
+//	*/
 	
-	@Id
-	//@ManyToOne
-	//@JoinColumn(name = "id_usuario", nullable = false)
+//	@Id
+	@ManyToOne
+	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
 	
-	@Id
-	//@ManyToOne
-	//@JoinColumn(name = "id_rol", nullable = false)
+//	@Id
+	@ManyToOne
+	@JoinColumn(name = "id_rol", nullable = false)
 	private Rol rol;
 
-	/*
+//	/*
 	public Integer getId() {
 		return id;
 	}
@@ -40,7 +40,7 @@ public class UsuarioRol implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	*/
+//	*/
 
 	public Usuario getUsuario() {
 		return usuario;

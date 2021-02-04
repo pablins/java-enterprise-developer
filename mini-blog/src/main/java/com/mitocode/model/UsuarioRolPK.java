@@ -6,15 +6,18 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Embeddable
+/*
+ * Se comentarea con el fin de no tener en cuenta esta llave compuesta
+ */
+//@Embeddable
 public class UsuarioRolPK implements Serializable {
 	
-	@ManyToOne
-	@JoinColumn(name = "id_usuario", nullable = false)
+//	@ManyToOne
+//	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_rol", nullable = false)
+//	@ManyToOne
+//	@JoinColumn(name = "id_rol", nullable = false)
 	private Rol rol;
 
 	public Usuario getUsuario() {
@@ -33,6 +36,7 @@ public class UsuarioRolPK implements Serializable {
 		this.rol = rol;
 	}
 
+	//Debido a que son de tipo clase es necesario sobreescribir los métodos equals y hashCode para que Java pueda comparar los objetos
 	@Override
 	public int hashCode() {
 		final int prime = 31;
