@@ -2,10 +2,13 @@ package com.mitocode.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity//para indicarle que es una entidad de JPA
@@ -14,27 +17,39 @@ public class Persona implements Serializable {//las clases de entidad deben tene
 	
 	@Id//llave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY)//estrategia de generación autoincremental por cada inserción
-	private Integer idPersona;
+	private Integer id;
 	
+	//Debido a que Usuario tiene @MapsId en Persona estamos obligados a realizar la reciprocidad de esta manera
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="persona")
+	private Usuario usuario;
+	
+	//name -> es para especificar el nombre de la columna
+	//nullable=false -> Es para especificar que no acepta nulos
+	@Column(name = "nombres", nullable = false, length = 50)
 	private String nombres;
 	
+	@Column(name = "apellidos", nullable = false, length = 50)
 	private String apellidos;
 	
+	@Column(name = "sexo", nullable = false, length = 1)
 	private String sexo;
 	
+	@Column(name = "pais", nullable = false, length = 25)
 	private String pais;
 	
+	@Column(name = "direccion", nullable = true, length = 150)
 	private String direccion;
 	
 	//vamos a guardar una foto en la DB
+	@Column(name = "foto", nullable = true)
 	private byte[] foto;
 
-	public Integer getIdPersona() {
-		return idPersona;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdPersona(Integer idPersona) {
-		this.idPersona = idPersona;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNombres() {

@@ -44,7 +44,7 @@ public class PersonaDAOImpl implements IPersonaDAO, Serializable {
 //			em.getTransaction().rollback();
 		}
 		
-		return per.getIdPersona();
+		return per.getId();
 	}
 
 	public Integer modificar(Persona per) throws Exception {
@@ -61,12 +61,12 @@ public class PersonaDAOImpl implements IPersonaDAO, Serializable {
 		List<Persona> lista = new ArrayList<>();
 		
 		Persona per = new Persona();
-		per.setIdPersona(1);
+		per.setId(1);
 		per.setNombres("Pablo");
 		lista.add(per);
 
 		per = new Persona();
-		per.setIdPersona(2);
+		per.setId(2);
 		per.setNombres("Code");
 		lista.add(per);
 		
