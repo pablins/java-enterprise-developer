@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+//@Entity(name = "rol")//En este caso sobreescribiriamos el nombre de la entidad con nombre en minuscula. Por default JPA toma el nombre de la clase tal cual y es el usado para las consultas JPQL
 @Table(name = "rol")
 public class Rol implements Serializable {
 	
