@@ -44,8 +44,11 @@
 						
 						<!-- Pais - ComboBox-->
 						<p:outputLabel for="cboPais" value="Pais"/>
+						<!-- Ya primefaces nos ofrece opciones para realizar filtros en la lista -->
 						<p:selectOneMenu id="cboPais" value="#{registroBean.persona.pais}" filter="true" filterMatchMode="contains" required="true">
+							<!-- Opcion por defecto cuando no se selecciona nada -->
 							<f:selectItem noSelectionOption="true" value="#{null}" itemLabel="--Seleccione--"/>
+							<f:selectItems value="#{paisDTO.paises}" var="p" itemLabel="#{p}" itemValue="#{p}"/>
 						</p:selectOneMenu>
 						<p:message for="cboPais" display="text"/>
 						<h:column />
