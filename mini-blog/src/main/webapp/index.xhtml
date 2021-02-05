@@ -5,22 +5,35 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
 
-<h:head></h:head> 
+<h:head>
+	<!-- Esta carpeta debe estar dentro de webapp -->
+	<link href="./resources/css/index.css" rel="stylesheet" type="text/css"/>
+</h:head> 
 <body> 
 
 	<h:form>
-		<p:outputLabel value="Nombres"/>
-		<p:inputText value="#{personaBean.persona.nombres}"/>
-		<p:commandButton actionListener="#{personaBean.registrar()}" value="Registrar"/>
-		
-		<p:dataTable id="tblPersonas" value="#{personaBean.lista}" var="itemPersona">
-			<p:column headerText="ID">
-				<p:outputLabel value="#{itemPersona.id}" />
-			</p:column>
-			<p:column headerText="NOMBRES">
-				<p:outputLabel value="#{itemPersona.nombres}" />
-			</p:column>
-		</p:dataTable>
+		<div class="centerDiv" style="width: 400px">
+			<p:panel>
+				<!-- Encabezado del panel -->
+				<f:facet name="header">Login</f:facet>
+				
+				<!-- Sistema de grillas para dividir el contendo  -->
+				<h:panelGrid columns="2">
+					<!-- Primera fila -->
+					<p:outputLabel for="txtLogin" value="Usuario:"/>
+					<h:inputText id="txtLogin" required="true" />
+					
+					<!-- Segunda fila -->
+					<p:outputLabel for="txtContrasena" value="Contraseña:"/>
+					<h:inputSecret id="txtContrasena" required="true"/>
+				</h:panelGrid>
+				
+				<p:commandButton value="Login" />
+				<!-- Se coloca el immediate true para que realice la acción que dice el botón saltandose el ciclo de vida de validación de campos requeridos -->
+				<!-- El action realiza un navegación, redirección forzada a la página registrar.xthml -->
+				<p:commandButton value="Crear Usuario" action="registrar?faces-redirect=true" immediate="true"/>
+			</p:panel>
+		</div>
 	</h:form>
 
 </body> 
