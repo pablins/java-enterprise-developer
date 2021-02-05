@@ -35,8 +35,9 @@ public class Usuario implements Serializable {
 	@Column(name = "contrasena", nullable = false, length = 80)//Se deja largo dado que se encriptará
 	private String contrasena;
 	
-	@Column(name = "estado", nullable = false, length = 1)	
-	private String estado;//Indica sí el usuario está activo o no
+	@Column(name = "estado", nullable = false, length = 1)
+	//Por default lo dejamos como Activo
+	private String estado = "A";//Indica sí el usuario está activo o no. A: Activo, I: Inactivo
 
 	public Integer getId() {
 		return id;
@@ -44,6 +45,14 @@ public class Usuario implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
 	public String getUsuario() {

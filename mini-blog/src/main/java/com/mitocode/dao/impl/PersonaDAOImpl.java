@@ -42,6 +42,7 @@ public class PersonaDAOImpl implements IPersonaDAO, Serializable {
 //			em.getTransaction().commit();
 		} catch(Exception e) {
 //			em.getTransaction().rollback();
+			e.printStackTrace();
 		}
 		
 		return per.getId();

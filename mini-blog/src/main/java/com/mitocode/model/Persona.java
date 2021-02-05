@@ -51,6 +51,14 @@ public class Persona implements Serializable {//las clases de entidad deben tene
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	public String getNombres() {
 		return nombres;
