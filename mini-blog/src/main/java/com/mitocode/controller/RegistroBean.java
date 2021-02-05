@@ -7,6 +7,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.mitocode.model.Persona;
 import com.mitocode.model.Usuario;
 import com.mitocode.service.IPersonaService;
@@ -33,6 +35,11 @@ public class RegistroBean implements Serializable {
 	
 	public void registrar() {
 		try {
+			//Encriptamos la contraseña
+			String clave = this.usuario.getContrasena();
+			String claveHash = BCrypt.hashpw(clave, BCrypt.gensalt());//Devuelve un hash de 60 caracteres
+			this.usuario.setContrasena(claveHash);
+			
 			this.persona.setUsuario(this.usuario);//seteamos la información de usuario para que al registrar la persona tambien se inserte esta información
 			this.usuario.setPersona(this.persona);//es importante indicarlo debido a que es una relación en ambas direcciones. Parece redundancia pero es necesario
 			this.personaService.registrar(this.persona);
