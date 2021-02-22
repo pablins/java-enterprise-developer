@@ -44,8 +44,11 @@ public class RegistroBean implements Serializable {
 	
 	//Nos permite integridad de datos para el tema de transacciones
 	@Transactional//Vuelve el método transaccional, un sólo bloque. Sí sucede un error en la operación realiza un rollback. Util en este caso debido a que puede ser que inserte persona y usuario pero por algún error no realice el insert de sus roles. Por tanto haría todo y no haría nada
-	public void registrar() {
-		try {
+	public String registrar() {
+		
+		String redireccion = "";
+		
+		try {			
 			//Encriptamos la contraseña
 			String clave = this.usuario.getContrasena();//Obtenemos clave original
 			String claveHash = BCrypt.hashpw(clave, BCrypt.gensalt());//Devuelve un hash de 60 caracteres. Corresponderá a la clave encriptada
@@ -63,9 +66,12 @@ public class RegistroBean implements Serializable {
 			
 			rolService.asignar(this.usuario, roles);
 			
+			redireccion = "index?faces-redirect=true";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return redireccion;
 	}
 
 	//Get & Set
