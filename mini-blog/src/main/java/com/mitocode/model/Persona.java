@@ -20,7 +20,7 @@ public class Persona implements Serializable {//las clases de entidad deben tene
 	private Integer id;
 	
 	//Debido a que Usuario tiene @MapsId en Persona estamos obligados a realizar la reciprocidad de esta manera
-	@OneToOne(cascade = CascadeType.ALL, mappedBy="persona")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="persona")//'mappedBy=persona' -> corresponde al nombre del atributo en la clase Usuario
 	private Usuario usuario;
 	
 	//name -> es para especificar el nombre de la columna

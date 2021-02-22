@@ -48,7 +48,7 @@ public class RolDAOImpl implements IRolDAO, Serializable {
 
 	@Override
 	public Rol listarPorId(Rol t) throws Exception {
-		Query query = em.createQuery("FROM Rol r WHERE r.id = ?1");//Podemos obviar el 'SELECT R'
+		Query query = em.createQuery("FROM Rol r WHERE r.id = ?1");//Podemos obviar el 'SELECT r'
 		query.setParameter(1, t.getId());//Seteamos el parametro que hemos definido como 1
 		
 		List<Rol> lista = (List<Rol>)query.getResultList();//Se recomienda el casteo explicito, dado que por default devuelve un object
@@ -60,27 +60,27 @@ public class RolDAOImpl implements IRolDAO, Serializable {
 	public Integer asignar(Usuario usuario, List<UsuarioRol> roles) {
 		
 		//1-Primero eliminamos todos los roles que ya tenga el usuario
-		Query query = em.createNativeQuery("DELETE FROM usuario_rol ur WHERE ur.id_usuario = ?1");//en esta ocasión estamos usando un query nativo, SQL normal
+		Query query = em.createNativeQuery("DELETE FROM usuario_rol ur WHERE ur.id_usuario = ?1");//en esta ocasión estamos usando un query nativo, SQL normal. Por tanto, usamos el nombre de la tabla en la DB
 		query.setParameter(1, usuario.getPersona().getId());
 		query.executeUpdate();//Realizamos la ejecución del query
 		
 		
-		//2-Insertamos los nuevos roles
+		//2-Insertamos los nuevos roles - Aprovechamos el uso de Java 8 con las lambdas
 //		int i = 0;
 		//Truco para poder usar variable local
-		int[] i = { 0 };//Iniciamos el arreglo asignando el valor cero a la primera posicion
+		int[] i = { 0 };//Iniciamos el arreglo asignando el valor cero a la primera posicion. Es decir, creamos un arreglo de una posicion
 		//iteramos la lista de roles para insertar los nuevos roles
 		roles.forEach(r -> {
 			em.persist(r);//IMPORTANTE: El EntityManager se satura cuando se hacen muchas persistencias dentro de un bucle
 			
 			//Tip - Limpiamos el EntityManager cada N iteraciones
-			//if(i % 100 == 0) {//cada 100 iteraciones hacemos una limpieza
+			//if(i % 100 == 0) {//cada 100 iteraciones hacemos una limpieza (puede ser 10, 20, etc. Por ahora es un número que se me ocurre)
 			if(i[0] % 100 == 0) {//Verificamos el valor en la posicion 0
 				em.flush();
 				em.clear();
 			}
 			
-//			i++;//Las lambdas son funciones anónimas y no tienen visibilidad a lo que hay hacia afuera de ella, salvo que sea atributo de clase
+//			i++;//Las lambdas son funciones anónimas y no tienen visibilidad a lo que hay hacia afuera de ella, salvo que sea atributo de clase (por eso el EntityManager sí lo puede leer)
 			i[0]++; 
 		});
 		

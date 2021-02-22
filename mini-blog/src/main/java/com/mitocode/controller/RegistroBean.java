@@ -22,13 +22,14 @@ public class RegistroBean implements Serializable {
 	@Inject
 	private IPersonaService personaService;
 	
+	//Atributos de la clase
 	private Persona persona;
 	
 	private Usuario usuario;
 	
 	@PostConstruct
 	public void init() {
-		//Inicializamos las variables para evitar NullPointerException
+		//Inicializamos las variables para evitar NullPointerException. Es importante porque en la página la estamos llamando como: "registroBean.persona.nombres"
 		persona = new Persona();
 		usuario = new Usuario();
 	}
@@ -36,13 +37,14 @@ public class RegistroBean implements Serializable {
 	public void registrar() {
 		try {
 			//Encriptamos la contraseña
-			String clave = this.usuario.getContrasena();
-			String claveHash = BCrypt.hashpw(clave, BCrypt.gensalt());//Devuelve un hash de 60 caracteres
+			String clave = this.usuario.getContrasena();//Obtenemos clave original
+			String claveHash = BCrypt.hashpw(clave, BCrypt.gensalt());//Devuelve un hash de 60 caracteres. Corresponderá a la clave encriptada
 			this.usuario.setContrasena(claveHash);
 			
+			//Desde aquí podriamos hacer un "this.usuario.setEstado(ENLAZAR_UN_PROPERTIES)" en vez de dejarlo en Entity de Usuario ó tambien podría ser un valor por default en la DB
 			this.persona.setUsuario(this.usuario);//seteamos la información de usuario para que al registrar la persona tambien se inserte esta información
-			this.usuario.setPersona(this.persona);//es importante indicarlo debido a que es una relación en ambas direcciones. Parece redundancia pero es necesario
-			this.personaService.registrar(this.persona);
+			this.usuario.setPersona(this.persona);//es importante indicarlo debido a que es una relación en ambas direcciones (debe hacerse una bidirección). Parece redundancia pero es necesario
+			this.personaService.registrar(this.persona);//Al mandar el objeto persona ya tiene el reconocimiento en ambos sentidos y así puede hacer la asignación automática del id generado
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

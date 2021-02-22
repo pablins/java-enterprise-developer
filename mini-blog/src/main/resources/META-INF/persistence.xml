@@ -12,6 +12,7 @@
 		
 		<properties>
 			<!-- propertie para JEE, se puede create, none o drop-and-create -->
+			<!-- Lo dejaremos en none cuando ya estabilicemos el modelo y no queramos que se vuelvan a crear las tablas y se nos borre la data-->
 			<!-- Al estar en create y debido a que ya existen las tablas en la DB saldrán errores de advertencia informando que las tablas ya existen -->
 			<property name="javax.persistence.schema-generation.database.action" value="none"/>
 			<!-- Apenas levante la aplicación el persistence leera el archivo data.sql y ejecutará el script. Referencia al script que ejecutará -->
