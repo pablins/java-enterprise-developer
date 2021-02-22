@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -41,6 +42,8 @@ public class RegistroBean implements Serializable {
 		usuario = new Usuario();
 	}
 	
+	//Nos permite integridad de datos para el tema de transacciones
+	@Transactional//Vuelve el método transaccional, un sólo bloque. Sí sucede un error en la operación realiza un rollback. Util en este caso debido a que puede ser que inserte persona y usuario pero por algún error no realice el insert de sus roles. Por tanto haría todo y no haría nada
 	public void registrar() {
 		try {
 			//Encriptamos la contraseña
