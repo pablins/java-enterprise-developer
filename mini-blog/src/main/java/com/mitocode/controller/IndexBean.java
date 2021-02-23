@@ -36,7 +36,10 @@ public class IndexBean implements Serializable {
 			
 			if(informacionUsuario != null && "A".equalsIgnoreCase(informacionUsuario.getEstado())) {//TODO: OJO pendiente verificar con otro argumento como por ejemplo que el ID sea diferente de nulo, dado que así por default cumpliria cuando no se encuentra el usuario
 				//Almacenar en la sesión de JSF y proseguir con la navegación
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "CORRECTO"));
+				//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "CORRECTO")); -> Usado como fines didacticos
+				//Almacenamos la información del usuario en la sesión de JSF. Almacenamos información del usuario que acaba de loguearse
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);//Guardamos en el mapa de la sesión de JSF lo que queramos. En este caso guardamos el usuario
+				redireccion = "/protegido/roles?faces-redirect=true";//Se deja dentro de una carpeta con el fin de que sólo tengan acceso usuarios que inician sesión
 			} else {
 				//clientId= Es para representar el cliente de la aplicación, es como un apodo a la aplicación. Puede dejarse como null
 				//message= Es un objeto de tipo FacesMessage. Recibe la severidad, titulo y cuerpo del mensaje
