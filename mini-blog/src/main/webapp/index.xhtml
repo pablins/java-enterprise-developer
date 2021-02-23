@@ -12,6 +12,8 @@
 <body> 
 
 	<h:form>
+		<!-- Mensaje emergente (notificación). El autoUpdate=true es para que esté a la escucha de petición tipo AJAX. El shwDetail=true es para que muestre el detalle del mensaje -->
+		<p:growl autoUpdate="true" showDetail="true"/>
 		<div class="centerDiv" style="width: 400px">
 			<p:panel>
 				<!-- Encabezado del panel -->
@@ -21,14 +23,14 @@
 				<h:panelGrid columns="2">
 					<!-- Primera fila -->
 					<p:outputLabel for="txtLogin" value="Usuario:"/>
-					<h:inputText id="txtLogin" required="true" />
+					<h:inputText id="txtLogin" required="true" value="#{indexBean.usuario.usuario}"/>
 					
 					<!-- Segunda fila -->
 					<p:outputLabel for="txtContrasena" value="Contraseña:"/>
-					<h:inputSecret id="txtContrasena" required="true"/>
+					<h:inputSecret id="txtContrasena" required="true" value="#{indexBean.usuario.contrasena}"/>
 				</h:panelGrid>
 				
-				<p:commandButton value="Login" />
+				<p:commandButton value="Login" action="#{indexBean.login()}"/>
 				<!-- Se coloca el immediate true para que realice la acción que dice el botón saltandose el ciclo de vida de validación de campos requeridos -->
 				<!-- El action realiza un navegación, redirección forzada a la página registrar.xthml -->
 				<p:commandButton value="Crear Usuario" action="registrar?faces-redirect=true" immediate="true"/>
