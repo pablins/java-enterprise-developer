@@ -6,6 +6,10 @@
       xmlns:p="http://primefaces.org/ui">
       
 <h:head>
+	<!-- busca automáticamente la carpeta 'resources' en webapp -->
+	<!-- library corresponde a la carpeta y/o subcarpetas que hay dentro de resources -->
+	<!-- name es el nombre del archivo que tiene los estilos -->
+	<h:outputStylesheet library="css" name="estilos.css"/>
 	<title>
 		<ui:insert name="titulo">MiniBlog - Inicio</ui:insert>
 	</title>

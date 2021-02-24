@@ -1,0 +1,18 @@
+/*Centra la página web*/
+.resolucion {
+	width: 800px;
+	margin: 0 auto;
+}
+
+/*Sobreescribimos clases propias de primefaces*/
+.ui-widget {
+	font-size: 82% !important;
+}
+
+.ui-widget .ui-widget {
+	font-size: 100% !important;
+}
+
+body {
+	font-family: lato;
+}
