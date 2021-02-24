@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+<h:head>
+	<title>
+		<ui:insert name="titulo">MiniBlog - Inicio</ui:insert>
+	</title>
+</h:head>
+
+<body class="resolucion">
+
+	<ui:insert name="header">
+		<!-- autoDisplay=false es para que sólo se despliegue la opción del menú al hacer clic, si no se desplegaría al pasar el mouse -->
+		<p:menubar autoDisplay="false">
+			<p:menuitem icon="ui-icon-home" value="Inicio" url="/protegido/principal.xhtml"/>
+			<p:menuitem icon="ui-icon-person" value="Publicaciones" url="/protegido/publicaciones.xhtml"/>
+			
+			<p:submenu label="Seguidores" icon="ui-icon-person">
+				<p:menuitem icon="ui-icon-person" value="Mis seguidores" url="/protegido/me_sigue.xhtml"/>
+				<p:menuitem icon="ui-icon-person" value="¿A quién seguir?" url="/protegido/seguir.xhtml"/>
+			</p:submenu>
+			
+			<p:submenu label="Mantenedores" icon="ui-icon-pencil">
+				<p:menuitem icon="ui-icon-document" value="Personas" url="/protegido/personas.xhtml"/>
+				<p:menuitem icon="ui-icon-document" value="Usuarios" url="/protegido/usuarios.xhtml"/>
+				<p:menuitem icon="ui-icon-document" value="Roles" url="/protegido/roles.xhtml"/>
+				<p:menuitem icon="ui-icon-document" value="Asignar Roles" url="/protegido/asignar.xhtml"/>
+			</p:submenu>
+			
+			<p:menuitem icon="ui-icon-print" value="Reportes" url="/protegido/rep_seguidores.xhtml"/>
+		</p:menubar>
+	</ui:insert>
+	<ui:insert name="content"></ui:insert>
+	<ui:insert name="footer">
+		<div>
+			Copyright MitoCode Network - Pablo Rodriguez, 2021. Todos los derechos reservados
+		</div>
+	</ui:insert>
+
+</body>
+		
+</html>

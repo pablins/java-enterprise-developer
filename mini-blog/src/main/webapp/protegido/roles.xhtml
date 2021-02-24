@@ -7,5 +7,15 @@
 <h:head></h:head> 
 <body> 
 
+	<!-- Tomaríamos el contenido de toda la plantilla y sí queremos redefinimos las partes que se deseen -->
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		
+		<!-- Redefinimos la sección content que está en la plantilla master -->
+		<ui:define name="content">
+			ROLES
+		</ui:define>
+		
+	</ui:composition>
+
 </body> 
 </html>
