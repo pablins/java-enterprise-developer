@@ -56,8 +56,26 @@
 			<version>0.4</version>
 		</dependency>
 
+		<!-- Temas de Primefaces, se usa temas Community dado que son gratuitos (los importamos todos pero en el web.xhtml especificamos el que usaremos). https://www.primefaces.org/themes/ -->
+		<!-- Tomado de https://www.primefaces.org/themes/ -->
+		<!-- Por default busca las dependencias en maven central, pero esto esta en el repo de primefaces -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
 
 	</dependencies>
+	
+	<repositories>
+		<!-- Repositorio para busqueda de themes de primefaces -->
+		<repository>
+			<id>prime-repo</id>
+			<name>Primefaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 
 	<build>
 		<finalName>mini-blog</finalName>

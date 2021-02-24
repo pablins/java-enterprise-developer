@@ -26,4 +26,11 @@
 		<param-value>true</param-value>
 	</context-param>
 
+	<!-- Establecemos el theme tema de primefaces que queramos usar -->
+	<context-param>
+		<description>Seleccion de tema de primefaces que queramos usar</description>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>pepper-grinder</param-value>
+	</context-param>
+
 </web-app>
