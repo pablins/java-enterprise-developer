@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+			<ui:define name="content">
+				<h1>Personas</h1>
+				<!-- importante establecer el enctype cuando se desee enviar archivos en un formulario, sino se recibirá null -->
+				<h:form enctype="multipart/form-data">
+					<!-- En el evento onclick llamamos la función de primefaces con el id del componente para hacer la función javascript de mostrar el dialogo -->
+					<p:commandButton value="Nuevo" onclick="PF('dlg').show()"/>
+					
+					<!-- modal=true -> Es para que se vea como un modal colocando traslucido la parte de atras -->
+					<!-- widgetVar -> corresponde al id en javascript que le asigna primefaces -->
+					<!-- colseOnEscape=true -> para que se cierre con tecla ESC -->
+					<!-- resizable -> para permitir modificar el tamaño del dialog -->
+					<!-- draggable -> para permitir arrastrar el dialog -->
+					<p:dialog header="Nueva Persona" modal="true" widgetVar="dlg" closeOnEscape="true" resizable="false" draggable="true">
+						<h:panelGrid columns="2">
+							<!-- nombres -->
+							<p:outputLabel value="Nombres"/>
+							<p:inputText value="#{personaBean.persona.nombres}"/>
+
+							<!-- apellidos -->
+							<p:outputLabel value="Apellidos"/>
+							<p:inputText value="#{personaBean.persona.apellidos}"/>
+
+							<!-- sexo -->
+							<p:outputLabel value="Sexo"/>
+							<p:inputText value="#{personaBean.persona.sexo}"/>
+
+							<!-- dirección -->
+							<p:outputLabel value="Dirección"/>
+							<p:inputText value="#{personaBean.persona.direccion}"/>
+
+							<!-- pais -->
+							<p:outputLabel value="País"/>
+							<p:inputText value="#{personaBean.persona.pais}"/>
+							
+							<!-- foto -->
+							<p:outputLabel value="Foto"/>
+							<p:fileUpload value="#{personaBean.uploadedFileFoto}" mode="simple" skinSimple="true" label="Examinar..."/>
+						</h:panelGrid>
+						
+						<!-- El método Operar lo usaremos para Registrar (R) o Modificar (M) el registro de acuerdo al parametro que reciba -->
+						<!-- importante establecer ajax=false para poder subir el archivo, sino llegará null. Dado que por default primefaces trabaja las peticiones como ajax -->
+						<p:commandButton value="Registrar" actionListener="#{personaBean.operar('R')}" ajax="false"/>
+						
+					</p:dialog>
+				
+				</h:form>
+			</ui:define>
+	</ui:composition>
+
+</html>

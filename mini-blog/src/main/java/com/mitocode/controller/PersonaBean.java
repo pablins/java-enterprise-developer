@@ -8,6 +8,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.UploadedFile;
+
 import com.mitocode.model.Persona;
 import com.mitocode.service.IPersonaService;
 import com.mitocode.service.impl.PersonaServiceImpl;
@@ -25,6 +27,9 @@ public class PersonaBean implements Serializable {
 	
 	private List<Persona> lista;
 	
+	//Atributo de primefaces para el manejo de archivos. No se deja en la clase del modelo debido a que lo ataríamos a PrimeFaces
+	private UploadedFile uploadedFileFoto;
+	
 	public PersonaBean() {
 		this.persona = new Persona();
 		//this.service = new PersonaServiceImpl();//Ya no es necesario usar el "new"
@@ -41,7 +46,23 @@ public class PersonaBean implements Serializable {
 		try {
 			this.service.registrar(persona);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void operar(String accion) {
+		try {
+			if(uploadedFileFoto != null) {
+				this.persona.setFoto(uploadedFileFoto.getContents());//obtenemos el objeto de bytes del objeto de primefaces
+			}
+			
+			if("R".equalsIgnoreCase(accion)) {
+				this.service.registrar(this.persona);
+			} else if("M".equalsIgnoreCase(accion)) {
+				this.service.modificar(this.persona);
+			}
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -73,7 +94,13 @@ public class PersonaBean implements Serializable {
 	public void setLista(List<Persona> lista) {
 		this.lista = lista;
 	}
-	
-	
+
+	public UploadedFile getUploadedFileFoto() {
+		return uploadedFileFoto;
+	}
+
+	public void setUploadedFileFoto(UploadedFile uploadedFileFoto) {
+		this.uploadedFileFoto = uploadedFileFoto;
+	}
 	
 }
