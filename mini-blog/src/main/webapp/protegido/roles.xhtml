@@ -24,10 +24,12 @@
 				
 					<p:ajax event="rowEdit" listener="#{rolBean.onRowEdit}"/>
 				
-					<p:column headerText="ID">
+					<!-- filterBy -> Filtramos por el criterio que estamos buscando -->
+					<!-- filterMarchMode -> método de busqueda. Puede ser: 'exact', 'contains', 'startsWith' y 'endsWith' -->
+					<p:column headerText="ID" filterBy="#{item.id}" filterMatchMode="exact">
 						<p:outputLabel value="#{item.id}"/>
 					</p:column>
-					<p:column headerText="Rol">
+					<p:column headerText="Rol" filterBy="#{item.tipo}" filterMatchMode="contains">
 						<p:cellEditor>
 							<f:facet name="output">
 								<p:outputLabel value="#{item.tipo}"/>
