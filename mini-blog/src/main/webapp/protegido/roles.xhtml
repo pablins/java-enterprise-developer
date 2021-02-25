@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
 <body> 
@@ -12,7 +13,36 @@
 		
 		<!-- Redefinimos la sección content que está en la plantilla master -->
 		<ui:define name="content">
-			ROLES
+			<h1>Roles</h1>
+			
+			<h:form>
+				<!-- para mostrar mensajes emergentes de validaciones -->
+				<!-- se coloca el autoUpdate=true para que muestre automaticamente los mensajes que se programan desde el managedBean -->
+				<p:growl id="messages" showDetail="true" autoUpdate="true"/>
+				
+				<p:dataTable value="#{rolBean.lista}" var="item" editable="true">
+				
+					<p:ajax event="rowEdit" listener="#{rolBean.onRowEdit}"/>
+				
+					<p:column headerText="ID">
+						<p:outputLabel value="#{item.id}"/>
+					</p:column>
+					<p:column headerText="Rol">
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:outputLabel value="#{item.tipo}"/>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{item.tipo}"/>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<!-- Datatable edit - establecemos la opción de editar en el mismo datatable. Importante que el tag datatable tenga editable=true-->
+					<p:column style="width: 32px">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+			</h:form>
 		</ui:define>
 		
 	</ui:composition>
