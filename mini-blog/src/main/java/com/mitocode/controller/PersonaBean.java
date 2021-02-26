@@ -5,17 +5,20 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import com.mitocode.model.Persona;
 import com.mitocode.service.IPersonaService;
-import com.mitocode.service.impl.PersonaServiceImpl;
 
 @Named
-@RequestScoped
+//@RequestScoped//Recibe la petición la procesa y se olvida de la petición (con cada petición 'reinicia' los atributos)
+//vewScoped nos permite que la página tenga muchas funciones ajax y se mantenga el valor de las variables guardado en memoria siempre y cuando estés en la misma página
+@ViewScoped//Usada debido a que en una petición sube la foto y en la siguiente procesa el registro (es decir, necesitamos mantener la información de la petición anterior). Usada para que se mantenga el estado en la misma página donde nos encontramos
 public class PersonaBean implements Serializable {
 	
 	//Inyección de dependencia - CDI
@@ -28,7 +31,7 @@ public class PersonaBean implements Serializable {
 	private List<Persona> lista;
 	
 	//Atributo de primefaces para el manejo de archivos. No se deja en la clase del modelo debido a que lo ataríamos a PrimeFaces
-	private UploadedFile uploadedFileFoto;
+	//private UploadedFile uploadedFileFoto;
 	
 	public PersonaBean() {
 		this.persona = new Persona();
@@ -50,11 +53,19 @@ public class PersonaBean implements Serializable {
 		}
 	}
 	
+	//método encargado de realizar la subida de un archivo cuando el componente fileUpload es mode=advanced
+	public void handleFileUpload(FileUploadEvent event) {//evento que sólo procesa el file
+		if(event.getFile() != null) {
+			this.persona.setFoto(event.getFile().getContents());//obtenemos los bytes del archivo
+		}
+    }
+	
 	public void operar(String accion) {
 		try {
-			if(uploadedFileFoto != null) {
-				this.persona.setFoto(uploadedFileFoto.getContents());//obtenemos el objeto de bytes del objeto de primefaces
-			}
+			//Ya no sería necesario debido a que lo estamos haciendo en el método handleFileUpload
+//			if(uploadedFileFoto != null) {
+//				this.persona.setFoto(uploadedFileFoto.getContents());//obtenemos el objeto de bytes del objeto de primefaces
+//			}
 			
 			if("R".equalsIgnoreCase(accion)) {
 				this.service.registrar(this.persona);
@@ -95,12 +106,12 @@ public class PersonaBean implements Serializable {
 		this.lista = lista;
 	}
 
-	public UploadedFile getUploadedFileFoto() {
-		return uploadedFileFoto;
-	}
-
-	public void setUploadedFileFoto(UploadedFile uploadedFileFoto) {
-		this.uploadedFileFoto = uploadedFileFoto;
-	}
+//	public UploadedFile getUploadedFileFoto() {
+//		return uploadedFileFoto;
+//	}
+//
+//	public void setUploadedFileFoto(UploadedFile uploadedFileFoto) {
+//		this.uploadedFileFoto = uploadedFileFoto;
+//	}
 	
 }

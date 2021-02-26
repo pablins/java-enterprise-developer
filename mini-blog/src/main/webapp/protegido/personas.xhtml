@@ -19,35 +19,47 @@
 					<!-- resizable -> para permitir modificar el tamaño del dialog -->
 					<!-- draggable -> para permitir arrastrar el dialog -->
 					<p:dialog header="Nueva Persona" modal="true" widgetVar="dlg" closeOnEscape="true" resizable="false" draggable="true">
-						<h:panelGrid columns="2">
+						<h:panelGrid id="pg" columns="3">
 							<!-- nombres -->
-							<p:outputLabel value="Nombres"/>
-							<p:inputText value="#{personaBean.persona.nombres}"/>
+							<p:outputLabel for="txtNombres" value="Nombres"/>
+							<p:inputText id="txtNombres" value="#{personaBean.persona.nombres}" required="true"/>
+							<p:message for="txtNombres" display="icon"/>
 
 							<!-- apellidos -->
-							<p:outputLabel value="Apellidos"/>
-							<p:inputText value="#{personaBean.persona.apellidos}"/>
+							<p:outputLabel for="txtApellidos" value="Apellidos"/>
+							<p:inputText id="txtApellidos" value="#{personaBean.persona.apellidos}" required="true"/>
+							<p:message for="txtApellidos" display="icon"/>
 
 							<!-- sexo -->
-							<p:outputLabel value="Sexo"/>
-							<p:inputText value="#{personaBean.persona.sexo}"/>
+							<p:outputLabel for="txtSexo" value="Sexo"/>
+							<p:inputText id="txtSexo" value="#{personaBean.persona.sexo}" required="true"/>
+							<p:message for="txtSexo" display="icon"/>
 
 							<!-- dirección -->
-							<p:outputLabel value="Dirección"/>
-							<p:inputText value="#{personaBean.persona.direccion}"/>
+							<p:outputLabel for="txtDireccion" value="Dirección"/>
+							<p:inputText id="txtDireccion" value="#{personaBean.persona.direccion}"/>
+							<p:message for="txtDireccion" display="icon"/>
 
 							<!-- pais -->
-							<p:outputLabel value="País"/>
-							<p:inputText value="#{personaBean.persona.pais}"/>
+							<p:outputLabel for="txtPais" value="País"/>
+							<p:inputText id="txtPais" value="#{personaBean.persona.pais}" required="true"/>
+							<p:message for="txtPais" display="icon"/>
 							
 							<!-- foto -->
-							<p:outputLabel value="Foto"/>
-							<p:fileUpload value="#{personaBean.uploadedFileFoto}" mode="simple" skinSimple="true" label="Examinar..."/>
+							<p:outputLabel for="fuFoto" value="Foto"/>
+							<!-- Forma de subir foto con mode=simple, es necesario colocar el botón con ajax=false -->
+							<!-- p:fileUpload value="#{personaBean.uploadedFileFoto}" mode="simple" skinSimple="true" label="Examinar..."/-->
+							<!-- Al colocar un for en el outputLabel, el nombre del label del componente fileUpload queda con el nombre del outputLabel y no se le hace caso al label de fileUpload -->
+							<p:fileUpload id="fuFoto" fileUploadListener="#{personaBean.handleFileUpload}" mode="advanced" multiple="false" cancelLabel="Cancelar" uploadLabel="Subir" label="Examinar..."/>
+							<p:message for="fuFoto" display="icon"/>
 						</h:panelGrid>
 						
 						<!-- El método Operar lo usaremos para Registrar (R) o Modificar (M) el registro de acuerdo al parametro que reciba -->
-						<!-- importante establecer ajax=false para poder subir el archivo, sino llegará null. Dado que por default primefaces trabaja las peticiones como ajax -->
-						<p:commandButton value="Registrar" actionListener="#{personaBean.operar('R')}" ajax="false"/>
+						<!-- importante establecer ajax=false para poder subir el archivo cuando se usa mode=simple, sino llegará null. Dado que por default primefaces trabaja las peticiones como ajax. O se podria manejar un componente más avanzado de primefaces(un mode diferente al simple) de subida de archivo donde ya no obliga a que el ajax sea false -->
+						<!-- Debido a que ajax=false, se agrega en el oncomplete que no se cierre el dialogo cuando existen validaciones que no se han cumplido -->
+						<!-- El caracter de ampersand no es permitido por tanto se utiliza su opción de escape. Dado que en XML no se puede colocar el ampersand y xhtml es una variante de XML -->
+						<!-- Al utilizar ajax es importante establecer el valor del atributo update para que primefaces sepa que componente debe refrescar  -->
+						<p:commandButton value="Registrar" actionListener="#{personaBean.operar('R')}" ajax="true" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlg').hide()" update="pg"/>
 						
 					</p:dialog>
 				
