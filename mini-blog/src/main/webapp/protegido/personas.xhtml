@@ -9,49 +9,95 @@
 			<ui:define name="content">
 				<h1>Personas</h1>
 				<!-- importante establecer el enctype cuando se desee enviar archivos en un formulario, sino se recibirá null -->
-				<h:form enctype="multipart/form-data">
+				<h:form id="idForm" enctype="multipart/form-data">
 					<!-- En el evento onclick llamamos la función de primefaces con el id del componente para hacer la función javascript de mostrar el dialogo -->
-					<p:commandButton value="Nuevo" onclick="PF('dlg').show()"/>
+					<!-- importante hacer el update para ver el cambio -->
+					<!-- dejamos el oncomplete porque con el onclick se cierra el modal -->
+					<!-- colocamos immediate=true para que no haga las validaciones en el formulario del modal -->
+					<!-- colocamos el process debido a que a veces se quedaba pegada la información del editar -->
+					<p:commandButton icon="ui-icon ui-icon-circle-plus" value="Nuevo" oncomplete="PF('wvDlg').show()" actionListener="#{personaBean.limpiarControles()}" update="idForm:idDialog" immediate="true" process="@this"/>
+					
+					<p:dataTable id="dt" value="#{personaBean.lista}" var="p"
+								 paginator="true" rows="5"
+								 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+								 rowsPerPageTemplate="5,10,15">
+								 
+						<p:column headerText="Nombres Completos">
+							<p:outputLabel value="#{p.nombres} #{p.apellidos}"/>
+						</p:column>
+						
+						<p:column headerText="Sexo">
+							<p:outputLabel value="#{p.sexo}"/>
+						</p:column>
+						
+						<p:column headerText="País">
+							<p:outputLabel value="#{p.pais}"/>
+						</p:column>
+						
+						<!-- exportable=false -> Indica que la columna no será exportable por el componente de primefaces de dataexport -->
+						<p:column headerText="Acciones" exportable="false">
+							<!-- Es necesario realizar una actualización al dialog debido a que primefaces usa AJAX y se debe refrescar el componente para que se vean los cambios realizados. El formato es <ID_FORM>:<ID_COMPONENT> -->
+							<!-- Para este caso debemos usar el atributo oncomplete, porque sí usamos el onclick se abriría y cerraría de inmediato el dialogo
+								 onclick: Se ejecuta cuando el link es cliqueado => Primero ejecutaria el onclick y luego el actionListener
+								 oncomplete: Se ejecuta cuando petición AJAX es completada => Primero ejecutaria el actionListener y luego el oncomplete -->
+							<!-- colocamos el immediate=true para que no haga caso a las validaciones y ejecute el método actionListner, dado que en caso contrario no dejaría realizar la peteción (submit) hasta que se cumplan los valores requeridos de los campos del modal -->
+							<!-- Es necesario indicar el atributo process dado que si no se hace no se actualiza el dialog con la información, por tanto indicamos a primefaces que procese el este botón este componente -->
+							<!-- en el process tambien se podría indicar el id del formulario que se desea que sea enviado al backend y se procese -->
+							<p:commandLink actionListener="#{personaBean.mostrarData(p)}" oncomplete="PF('wvDlg').show()" update="idForm:idDialog" immediate="true" process="@this">
+								<!-- library indirectamente hace mención a la carpeta "webapp/resources", entonces dentro de esta buscará la carperta images -->
+								<!-- se puede usar el componente de primefaces o JSF, daría el mismo resultado -->
+								<p:graphicImage library="images" name="edit.jpg"/>
+							</p:commandLink>
+						</p:column>
+								 
+					</p:dataTable>
 					
 					<!-- modal=true -> Es para que se vea como un modal colocando traslucido la parte de atras -->
 					<!-- widgetVar -> corresponde al id en javascript que le asigna primefaces -->
 					<!-- colseOnEscape=true -> para que se cierre con tecla ESC -->
 					<!-- resizable -> para permitir modificar el tamaño del dialog -->
 					<!-- draggable -> para permitir arrastrar el dialog -->
-					<p:dialog header="Nueva Persona" modal="true" widgetVar="dlg" closeOnEscape="true" resizable="false" draggable="true">
+					<p:dialog id="idDialog" header="#{personaBean.tituloDialogo}" modal="true" widgetVar="wvDlg" closeOnEscape="true" resizable="false" draggable="true">
 						<h:panelGrid id="pg" columns="3">
-							<!-- nombres -->
+							<!-- NOMBRES -->
 							<p:outputLabel for="txtNombres" value="Nombres"/>
 							<p:inputText id="txtNombres" value="#{personaBean.persona.nombres}" required="true"/>
 							<p:message for="txtNombres" display="icon"/>
 
-							<!-- apellidos -->
+							<!-- APELLIDOS -->
 							<p:outputLabel for="txtApellidos" value="Apellidos"/>
 							<p:inputText id="txtApellidos" value="#{personaBean.persona.apellidos}" required="true"/>
 							<p:message for="txtApellidos" display="icon"/>
 
-							<!-- sexo -->
+							<!-- SEXO -->
 							<p:outputLabel for="txtSexo" value="Sexo"/>
 							<p:inputText id="txtSexo" value="#{personaBean.persona.sexo}" required="true"/>
 							<p:message for="txtSexo" display="icon"/>
 
-							<!-- dirección -->
+							<!-- DIRECCIÓN -->
 							<p:outputLabel for="txtDireccion" value="Dirección"/>
 							<p:inputText id="txtDireccion" value="#{personaBean.persona.direccion}"/>
 							<p:message for="txtDireccion" display="icon"/>
 
-							<!-- pais -->
+							<!-- PAIS -->
 							<p:outputLabel for="txtPais" value="País"/>
 							<p:inputText id="txtPais" value="#{personaBean.persona.pais}" required="true"/>
 							<p:message for="txtPais" display="icon"/>
 							
-							<!-- foto -->
+							<!-- FOTO -->
 							<p:outputLabel for="fuFoto" value="Foto"/>
 							<!-- Forma de subir foto con mode=simple, es necesario colocar el botón con ajax=false -->
 							<!-- p:fileUpload value="#{personaBean.uploadedFileFoto}" mode="simple" skinSimple="true" label="Examinar..."/-->
 							<!-- Al colocar un for en el outputLabel, el nombre del label del componente fileUpload queda con el nombre del outputLabel y no se le hace caso al label de fileUpload -->
 							<p:fileUpload id="fuFoto" fileUploadListener="#{personaBean.handleFileUpload}" mode="advanced" multiple="false" cancelLabel="Cancelar" uploadLabel="Subir" label="Examinar..."/>
 							<p:message for="fuFoto" display="icon"/>
+							
+							<!-- MOSTRAR IMAGEN -->
+							<!-- esta etiqueta es como un img de HTML la cual mostrará la imagen que se le pase en el atributo value, el cual funciona como un el atributo src -->
+							<!-- en este caso tendremos un servlet que responderá sobre la ruta "/imagen/#" para devolver la información de la imagen que coincida con el # del id que se pase como parametro -->
+							<!-- me tocó colocar un rendered cuando la foto no fuera nula, debido a que aparecia como si no se encontrará una foto, pero en el ejemplo no era necesario este atributo -->
+							<p:graphicImage rendered="#{not empty personaBean.persona.foto}" value="/imagen/#{personaBean.persona.id}" width="120" height="120"/>
+							
 						</h:panelGrid>
 						
 						<!-- El método Operar lo usaremos para Registrar (R) o Modificar (M) el registro de acuerdo al parametro que reciba -->

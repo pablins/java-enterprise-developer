@@ -30,6 +30,11 @@ public class PersonaBean implements Serializable {
 	
 	private List<Persona> lista;
 	
+	/*
+	 * para indicar sí el dialogo se abre desde el botón nuevo o editar
+	 */
+	private String tituloDialogo;
+	
 	//Atributo de primefaces para el manejo de archivos. No se deja en la clase del modelo debido a que lo ataríamos a PrimeFaces
 	//private UploadedFile uploadedFileFoto;
 	
@@ -85,7 +90,17 @@ public class PersonaBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void mostrarData(Persona p) {
+		this.persona = p;//Debido a que el modal muestra la información del atributo persona, entonces asignamos el valor que recibimos por parametro, para que al editar un item de la lista se precargue esta información
+		this.tituloDialogo = "Modificar Persona";
+	}
 
+	public void limpiarControles() {
+		this.persona = new Persona();
+		this.tituloDialogo = "Nueva Persona";
+	}
+	
 	/*
 	 * Getters & Setters
 	 */
@@ -113,5 +128,13 @@ public class PersonaBean implements Serializable {
 //	public void setUploadedFileFoto(UploadedFile uploadedFileFoto) {
 //		this.uploadedFileFoto = uploadedFileFoto;
 //	}
+	
+	public String getTituloDialogo() {
+		return tituloDialogo;
+	}
+
+	public void setTituloDialogo(String tipoDialogo) {
+		this.tituloDialogo = tipoDialogo;
+	}
 	
 }

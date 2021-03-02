@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.mitocode.dao.IPersonaDAO;
 import com.mitocode.model.Persona;
@@ -49,34 +46,46 @@ public class PersonaDAOImpl implements IPersonaDAO, Serializable {
 	}
 
 	public Integer modificar(Persona per) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		em.merge(per);
+		return per.getId();
 	}
 
 	public Integer eliminar(Persona per) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		em.remove(em.merge(per));
+		return 1;
 	}
 
 	public List<Persona> listar() throws Exception {
+		
 		List<Persona> lista = new ArrayList<>();
 		
-		Persona per = new Persona();
-		per.setId(1);
-		per.setNombres("Pablo");
-		lista.add(per);
-
-		per = new Persona();
-		per.setId(2);
-		per.setNombres("Code");
-		lista.add(per);
+		try {
+			Query query = em.createQuery("FROM Persona p");
+			lista = (List<Persona>)query.getResultList();
+		} catch (Exception e) {
+			throw e;
+		}
 		
 		return lista;
 	}
 
 	public Persona listarPorId(Persona per) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Persona personaEncontrada = new Persona();
+		
+		try {
+			Query query = em.createQuery("FROM Persona p WHERE p.id = ?1");
+			query.setParameter(1, per.getId());
+			
+			List<Persona> lista = (List<Persona>)query.getResultList();
+			
+			if(lista != null && !lista.isEmpty()) {
+				personaEncontrada = lista.get(0);
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return personaEncontrada;
 	}
 
 }
