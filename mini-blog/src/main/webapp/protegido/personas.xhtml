@@ -13,7 +13,7 @@
 					<!-- En el evento onclick llamamos la función de primefaces con el id del componente para hacer la función javascript de mostrar el dialogo -->
 					<!-- importante hacer el update para ver el cambio -->
 					<!-- dejamos el oncomplete porque con el onclick se cierra el modal -->
-					<!-- colocamos immediate=true para que no haga las validaciones en el formulario del modal -->
+					<!-- colocamos immediate=true para que no haga las validaciones en el formulario del modal. Esto es debido a que estamos en un h:form entonces al intentar enviar una petición al back valida JSF intenta verificar los campos requeridos. Es decir, a este botón no le debe importar que sea validado los campos requeridos (dado que su fin es abrir un dialogo) -->
 					<!-- colocamos el process debido a que a veces se quedaba pegada la información del editar -->
 					<p:commandButton icon="ui-icon ui-icon-circle-plus" value="Nuevo" oncomplete="PF('wvDlg').show()" actionListener="#{personaBean.limpiarControles()}" update="idForm:idDialog" immediate="true" process="@this"/>
 					
@@ -96,7 +96,7 @@
 							<!-- esta etiqueta es como un img de HTML la cual mostrará la imagen que se le pase en el atributo value, el cual funciona como un el atributo src -->
 							<!-- en este caso tendremos un servlet que responderá sobre la ruta "/imagen/#" para devolver la información de la imagen que coincida con el # del id que se pase como parametro -->
 							<!-- me tocó colocar un rendered cuando la foto no fuera nula, debido a que aparecia como si no se encontrará una foto, pero en el ejemplo no era necesario este atributo -->
-							<p:graphicImage rendered="#{not empty personaBean.persona.foto}" value="/imagen/#{personaBean.persona.id}" width="120" height="120"/>
+							<p:graphicImage id="img" rendered="#{not empty personaBean.persona.foto}" value="/imagen/#{personaBean.persona.id}" width="120" height="120"/>
 							
 						</h:panelGrid>
 						
@@ -105,7 +105,12 @@
 						<!-- Debido a que ajax=false, se agrega en el oncomplete que no se cierre el dialogo cuando existen validaciones que no se han cumplido -->
 						<!-- El caracter de ampersand no es permitido por tanto se utiliza su opción de escape. Dado que en XML no se puede colocar el ampersand y xhtml es una variante de XML -->
 						<!-- Al utilizar ajax es importante establecer el valor del atributo update para que primefaces sepa que componente debe refrescar  -->
-						<p:commandButton value="Registrar" actionListener="#{personaBean.operar('R')}" ajax="true" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlg').hide()" update="pg"/>
+						<!-- rendered no es un hidden, significa que de acuerdo al valor booleano creará o no el tag en html, es decir, si se evalua a false no existirá en el html -->
+						<!-- actualizamos tanto el panel grid del modal (en caso que existan validaciones de requeridos o negocio) y el datatable para refrescar la información de la lista -->
+						<!-- para actualizar componentes simplemente se separan con comas y se especifican los ids de los componentes -->
+						<!-- las funciones PF de primeFaces usa los ids del widgetVar. Es función de primefaces y espera el widgetvar del componente para hacer la función javascript -->
+						<p:commandButton value="Registrar" actionListener="#{personaBean.operar('R')}" ajax="true" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('wvDlg').hide()" update="pg, dt" rendered="#{personaBean.tituloDialogo == 'Nuevo'}"/>
+						<p:commandButton value="Modificar" actionListener="#{personaBean.operar('M')}" ajax="true" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('wvDlg').hide()" update="pg, dt" rendered="#{personaBean.tituloDialogo == 'Modificar'}"/>
 						
 					</p:dialog>
 				

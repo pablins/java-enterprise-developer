@@ -38,16 +38,18 @@ public class PersonaBean implements Serializable {
 	//Atributo de primefaces para el manejo de archivos. No se deja en la clase del modelo debido a que lo ataríamos a PrimeFaces
 	//private UploadedFile uploadedFileFoto;
 	
-	public PersonaBean() {
-		this.persona = new Persona();
+//	public PersonaBean() {//Ya no sería necesario dado que no tendría ninguna implementación
+//		this.persona = new Persona();//Aquí se puede y funciona, pero mejor lo establecemos en el postcontruct para llevar un control y evitar incoherencias
 		//this.service = new PersonaServiceImpl();//Ya no es necesario usar el "new"
 		
 		//this.listar();//CDI no está disponible en la construcción del objeto, por tanto debemos usar el @PostConstruct para que se llame despues de que se ha construido el objeto
-	}
+//	}
 	
-	@PostConstruct
+	@PostConstruct//tambien se llama cuando le damos recargar a la página: 'http://localhost:8080/mini-blog/protegido/personas.xhtml' desde la URL del navegador
 	public void init() {
+		this.persona = new Persona();
 		this.listar();
+		this.tituloDialogo = "Nuevo";//Asignamos un valor por default para el título del dialogo
 	}
 	
 	public void registrar() {
@@ -78,6 +80,9 @@ public class PersonaBean implements Serializable {
 				this.service.modificar(this.persona);
 			}
 			
+			//actualizamos la lista, debido a que al modificar un registro se debe actualizar la información de la lista
+			this.listar();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,12 +98,12 @@ public class PersonaBean implements Serializable {
 	
 	public void mostrarData(Persona p) {
 		this.persona = p;//Debido a que el modal muestra la información del atributo persona, entonces asignamos el valor que recibimos por parametro, para que al editar un item de la lista se precargue esta información
-		this.tituloDialogo = "Modificar Persona";
+		this.tituloDialogo = "Modificar";
 	}
 
 	public void limpiarControles() {
 		this.persona = new Persona();
-		this.tituloDialogo = "Nueva Persona";
+		this.tituloDialogo = "Nuevo";
 	}
 	
 	/*
