@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h1>Personas</h1>
+			<h:form id="idForm">
+				<!-- Mostrar mensajes de aplicación, que acepta cualquier petición de tipo ajax mostrando mensaje emergente en el lado derecho superior -->
+				<p:growl autoUpdate="true" showDetail="true"/>
+				
+				<!-- combobox en primefaces -->
+				<!-- el atributo value del selectOneMenu corresponde a la selección que hará el usuario -->
+				<!-- cuando se quiera trabajar con objetos se necesita un converter, dado que por default sólo se manejan datos primitivos y string. Para ello primefaces propone el uso de FacesConverter creando una nueva clase, pero es más fácil con la librería omnifaces (librería utilitaria que facilita el trabajo con JSF) -->
+				<!-- si no se tuviera omnifaces, tocaría guardar el id en itemValue=e.id y en el selectOneMenu sería value=asignarBean.idPersona o value=asignarBean.persona.id -->
+				<p:selectOneMenu value="#{asignarBean.persona}" converter="omnifaces.SelectItemsConverter">
+					<!-- especificación de elementos simples -->
+					<!-- noSelectionOption=true es para que deje seleccionado por default esta opción. Opción marcada cuando no se seleccione nada -->
+					<f:selectItem itemLabel="--Seleccione--" itemValue="#{null}" noSelectionOption="true"/>
+					<!-- permite la asociación de elementos a partir de una lista -->
+					<!-- itemValue corresponde al valor que se enviará al back y itemLabel corresponde al valor que verá el usuario -->
+					<f:selectItems value="#{asignarBean.personas}" var="e" itemValue="#{e}" itemLabel="#{e.nombres} #{e.apellidos}"/>
+				</p:selectOneMenu>
+				
+				<!-- a pesar que el IDE no reconoce los atributos de la entidad Rol esta es la forma correcta de la implementación -->
+				<p:pickList value="#{asignarBean.dual}" var="e" itemLabel="#{e.tipo}" itemValue="#{e}" >
+					<!-- importante agregar el namespace respectivo que se puede encontrar en la documentación oficial de omnifaces -->
+					<!-- se utiliza el converter de omnifaces ListIndexConverter -->
+					<o:converter converterId="omnifaces.ListIndexConverter" list="#{asignarBean.dual.source}" />
+				</p:pickList>
+				
+				<p:commandButton value="Asignar" actionListener="#{asignarBean.asignar()}"/>
+			
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</html>
