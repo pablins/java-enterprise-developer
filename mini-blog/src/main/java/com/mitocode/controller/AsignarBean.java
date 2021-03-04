@@ -66,11 +66,12 @@ public class AsignarBean implements Serializable {
 	
 	public void asignar() {
 		try {
-			Usuario usuario = new Usuario();
-			usuario.setId(this.persona.getId());
-			usuario.setPersona(this.persona);
-			
-			rolService.asignar(usuario, this.dual.getTarget());//No sé por qué no se pasa directamente el usuario que ya está en persona
+//			Usuario usuario = new Usuario();
+//			usuario.setId(this.persona.getId());
+//			usuario.setPersona(this.persona);
+//			
+//			rolService.asignar(usuario, this.dual.getTarget());//No sé por qué no se pasa directamente el usuario que ya está en persona
+			rolService.asignar(this.persona.getUsuario(), dual.getTarget());//Se realiza de esta manera teniendo en cuenta que con omnifaces ya manejamos todo el objeto y este ya tiene toda la información necesaria
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
