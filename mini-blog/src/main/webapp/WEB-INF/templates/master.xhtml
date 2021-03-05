@@ -39,6 +39,12 @@
 			</p:submenu>
 			
 			<p:menuitem icon="ui-icon-print" value="Reportes" url="/protegido/rep_seguidores.xhtml"/>
+			
+			<f:facet name="options">
+				<!-- url corresponde a la página a la que se iría -->
+				<!-- creo que el URL está sobrando, dado que lo quité y de igualmanera funcionó ademas no es un atributo por default de commandButton -->
+				<p:commandButton icon="ui-icon-power" actionListener="#{masterBean.cerrarSesion()}" url="/index.xthml"/>
+			</f:facet>
 		</p:menubar>
 	</ui:insert>
 	<ui:insert name="content"></ui:insert>

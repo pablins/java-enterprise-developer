@@ -38,4 +38,9 @@ public class MasterBean implements Serializable {
 		}
 	}
 	
+	public void cerrarSesion() {
+		//matamos la sesión. Elimina todos los valores almacenados en el sessionMap de JSF
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	}
+	
 }
