@@ -25,6 +25,16 @@ public class Tag implements Serializable {
 	
 	@Column(name = "texto", length = 50)
 	private String texto;
+	
+	//Siempre debe tener el constructor vacio por la anotación @Entity
+	public Tag() {
+	}
+
+	public Tag(Publicacion publicacion, String texto) {
+		super();
+		this.publicacion = publicacion;
+		this.texto = texto;
+	}
 
 	public Integer getId() {
 		return id;
