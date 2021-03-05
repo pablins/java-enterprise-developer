@@ -10,6 +10,8 @@
 		
 			<!-- para mostrar mensajes de error -->
 			<p:growl autoUpdate="true" showDetail="true"/>
+			
+			<!-- Una página puede tener n forms, pero nunca un form puede estar dentro de otro form -->
 			<h:form id="idForm">
 				<p:panelGrid columns="1">
 					<p:outputLabel value="Texto"/>
@@ -21,7 +23,22 @@
 				</p:panelGrid>
 				
 				<p:commandButton value="Publicar" actionListener="#{publicacionBean.publicar()}"/>
+			</h:form>
 			
+			<h2>Publicaciones</h2>
+			<h:form>
+				<p:panelGrid columns="1">
+					<!-- componente de primefaces encargado de repetir lo que esté dentor de él -->
+					<p:repeat value="#{publicacionBean.publicaciones}" var="itemPublicacion">
+						<p:graphicImage value="/imagen/#{itemPublicacion.publicador.id}" width="32" height="32"/>
+						
+						<p:outputPanel>
+							<p:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="#{itemPublicacion.cuerpo}" />
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:repeat>
+				</p:panelGrid>				
 			</h:form>
 		</ui:define>
 	</ui:composition>

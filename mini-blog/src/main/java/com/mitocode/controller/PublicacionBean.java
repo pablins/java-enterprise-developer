@@ -1,6 +1,8 @@
 package com.mitocode.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -29,12 +31,25 @@ public class PublicacionBean implements Serializable {
 	
 	private Publicacion publicacion;
 	
+	private List<Publicacion> publicaciones;
+	
 	@PostConstruct
 	private void init() {
 		this.publicacion = new Publicacion();
 		
 		//Recuperamos de la memoria de JSF el usuario logeado
 		this.usuarioLogueado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");//corresponde al guardado en IndexBean.java cuando se logueo exitosamente el usuario
+		
+		listarPublicaciones();
+	}
+	
+	private void listarPublicaciones() {
+		try {
+			this.publicaciones = service.listarPublicacionesPorPublicador(this.usuarioLogueado.getPersona());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void publicar() {
@@ -59,7 +74,13 @@ public class PublicacionBean implements Serializable {
 	public void setPublicacion(Publicacion publicacion) {
 		this.publicacion = publicacion;
 	}
-	
-	
 
+	public List<Publicacion> getPublicaciones() {
+		return publicaciones;
+	}
+
+	public void setPublicaciones(List<Publicacion> publicaciones) {
+		this.publicaciones = publicaciones;
+	}
+	
 }

@@ -1,11 +1,13 @@
 package com.mitocode.dao.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.mitocode.dao.IPublicacionDAO;
 import com.mitocode.model.Persona;
@@ -57,8 +59,22 @@ public class PublicacionDAOImpl implements IPublicacionDAO, Serializable {
 
 	@Override
 	public List<Publicacion> listarPublicacionesPorPublicador(Persona publicador) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Publicacion> lista = new ArrayList<>();
+		
+		try {
+			Query query = em.createQuery("FROM Publicacion p WHERE p.publicador = ?1");
+			query.setParameter(1, publicador);
+			
+			//OTRA FORMA VIABLE:
+//			Query query = em.createQuery("FROM Publicacion p WHERE p.publicador.id = ?1");
+//			query.setParameter(1, publicador.getId());
+			
+			lista = (List<Publicacion>)query.getResultList();
+		} catch (Exception e) {
+			throw e;
+		}
+		return lista;
 	}
 
 	@Override

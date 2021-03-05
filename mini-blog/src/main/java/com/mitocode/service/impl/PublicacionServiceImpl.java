@@ -76,8 +76,7 @@ public class PublicacionServiceImpl implements IPublicacionService, Serializable
 
 	@Override
 	public List<Publicacion> listarPublicacionesPorPublicador(Persona publicador) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.listarPublicacionesPorPublicador(publicador);
 	}
 
 	@Override
