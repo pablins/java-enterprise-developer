@@ -83,8 +83,7 @@ public class SeguidorServiceImpl implements ISeguidorService, Serializable {
 
 	@Override
 	public List<PublicadorSeguidor> listarSeguidos(Persona persona) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.listarSeguidos(persona);
 	}
 
 }

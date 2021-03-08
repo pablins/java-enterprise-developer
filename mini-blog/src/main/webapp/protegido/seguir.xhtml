@@ -23,8 +23,8 @@
 								<p:graphicImage value="/imagen/#{e.id}" width="32" height="32"/>
 								<h:outputText value="#{e.nombres} #{e.apellidos}" />
 								
-								<p:commandButton icon="ui-icon-plus" value="Seguir" actionListener="#{seguirBean.seguir(e)}"/>
-								<p:commandButton icon="ui-icon-close" value="Dejar de seguir" actionListener="#{seguirBean.dejar(e)}"/>
+								<p:commandButton icon="ui-icon-plus" value="Seguir" actionListener="#{seguirBean.seguir(e)}" rendered="#{!e.esSeguido}"/>
+								<p:commandButton icon="ui-icon-close" value="Dejar de seguir" actionListener="#{seguirBean.dejar(e)}" rendered="#{e.esSeguido}"/>
 							</p:panelGrid>
 						</p:panel>              
                     

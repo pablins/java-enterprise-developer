@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity//para indicarle que es una entidad de JPA
 @Table(name = "persona")//nombre de la tabla como se creará en la DB
@@ -43,6 +44,13 @@ public class Persona implements Serializable {//las clases de entidad deben tene
 	//vamos a guardar una foto en la DB
 	@Column(name = "foto", nullable = true)
 	private byte[] foto;
+	
+	//atributo transitivo, no se agregará en la DB
+	/*
+	 * usado para indicar sí ya estamos siguiendo a esta persona en la página seguir.xhtml
+	 */
+	@Transient
+	private boolean esSeguido;
 
 	public Integer getId() {
 		return id;
@@ -106,6 +114,14 @@ public class Persona implements Serializable {//las clases de entidad deben tene
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
+	}
+
+	public boolean isEsSeguido() {
+		return esSeguido;
+	}
+
+	public void setEsSeguido(boolean esSeguido) {
+		this.esSeguido = esSeguido;
 	}
 	
 }

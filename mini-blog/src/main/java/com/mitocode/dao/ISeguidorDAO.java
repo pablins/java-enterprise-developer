@@ -21,7 +21,7 @@ public interface ISeguidorDAO {
 	
 	//List<PublicadorSeguidor> listarSeguidores() throws Exception;//Más adelante se realizará un reporte en Jasper
 	
-	//listar quien me está siguiendo
+	//listar publicadores a los que estoy siguiendo. Corresponde a la lista de publicadores que sigue la persona que se pasa por parametro
 	List<PublicadorSeguidor> listarSeguidos(Persona persona) throws Exception;
 
 }

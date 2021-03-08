@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.mitocode.model.Persona;
+import com.mitocode.model.PublicadorSeguidor;
 import com.mitocode.model.Usuario;
 import com.mitocode.service.IPersonaService;
 import com.mitocode.service.ISeguidorService;
@@ -29,18 +30,42 @@ public class SeguirBean implements Serializable {
 	//Atributos de la clase
 	private Usuario usuarioLogueado;
 	
+	/*
+	 * Corresponde a la lista de personas que se sigue (es decir, publicadores que sigue el usuario que se logueo)
+	 */
+	private List<PublicadorSeguidor> seguidos;
+	
 	private List<Persona> personas;
 	
 	@PostConstruct
 	private void init() {
 		this.usuarioLogueado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 		
+		this.listarSeguidos();//método encargado de devolver las personas a quienes estoy seguiendo (es decir, los publicadores que sigue el usuario que inicio sesión)
 		this.listarPersonas();
+	}
+	
+	private void listarSeguidos() {
+		try {
+			this.seguidos = this.seguidorService.listarSeguidos(this.usuarioLogueado.getPersona());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void listarPersonas() {
 		try {
+			//obtenemos toda la lista de las personas
 			this.personas = personaService.listar();
+			
+			//seteamos sí la persona ya la estamos siguiendo
+			this.personas.forEach(p -> {
+				this.seguidos.forEach(s -> {
+					if(s.getPublicador().getId() == p.getId()) {
+						p.setEsSeguido(true);//por default el campo esSeguido es false, por tanto sólo seteamos a true los que identificamos que está siguiendo la persona que está logueada
+					}
+				});
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
