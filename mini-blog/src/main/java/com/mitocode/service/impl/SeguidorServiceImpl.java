@@ -56,9 +56,30 @@ public class SeguidorServiceImpl implements ISeguidorService, Serializable {
 
 	@Override
 	public Integer dejarDeSeguir(List<Persona> seguidores, List<Persona> publicadores) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+		int respuesta  = 0;
+		
+		try {
+			List<PublicadorSeguidor> publicadoresSeguidores = new ArrayList<>();
+			
+			publicadores.forEach(p -> {
+				seguidores.forEach(s -> {
+					PublicadorSeguidor publicadorSeguidor = new PublicadorSeguidor();
+					publicadorSeguidor.setPublicador(p);
+					publicadorSeguidor.setSeguidor(s);
+					publicadorSeguidor.setFecha(LocalDateTime.now());
+					
+					publicadoresSeguidores.add(publicadorSeguidor);
+				});
+			});
+			
+			respuesta = dao.dejarDeSeguir(publicadoresSeguidores);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return respuesta;
+ 	}
 
 	@Override
 	public List<PublicadorSeguidor> listarSeguidos(Persona persona) throws Exception {

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.mitocode.dao.ISeguidorDAO;
 import com.mitocode.model.Persona;
@@ -47,10 +48,32 @@ public class SeguidorDAOImpl implements ISeguidorDAO, Serializable {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.mitocode.dao.ISeguidorDAO#dejarDeSeguir(java.util.List)
+	 * 
+	 * Se interpreta como un delete.
+	 */
 	@Override
 	public Integer dejarDeSeguir(List<PublicadorSeguidor> publicadoresSeguidores) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		int respuesta  = 0;
+		
+		try {
+			publicadoresSeguidores.forEach(ps -> {
+				Query query = em.createQuery("DELETE FROM PublicadorSeguidor ps WHERE ps.publicador.id = ?1 AND ps.seguidor.id = ?2");
+				query.setParameter(1, ps.getPublicador().getId());
+				query.setParameter(2, ps.getSeguidor().getId());
+				
+				query.executeUpdate();//Se usa para sentencias Delete, Update e Insert
+			});
+			
+			respuesta = 1;
+		} catch (Exception e) {
+			respuesta = 0;
+			e.printStackTrace();
+		}
+		
+		return respuesta;
 	}
 
 	@Override

@@ -24,7 +24,7 @@
 								<h:outputText value="#{e.nombres} #{e.apellidos}" />
 								
 								<p:commandButton icon="ui-icon-plus" value="Seguir" actionListener="#{seguirBean.seguir(e)}"/>
-								<p:commandButton icon="ui-icon-close" value="Dejar de seguir"/>
+								<p:commandButton icon="ui-icon-close" value="Dejar de seguir" actionListener="#{seguirBean.dejar(e)}"/>
 							</p:panelGrid>
 						</p:panel>              
                     

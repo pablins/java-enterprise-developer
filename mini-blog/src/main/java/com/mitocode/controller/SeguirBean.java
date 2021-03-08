@@ -60,6 +60,23 @@ public class SeguirBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * método con la lógica de dejar de seguir a una persona
+	 */
+	public void dejar(Persona personaADejarDeSeguir) {
+		try {
+			List<Persona> seguidores = new ArrayList<>();
+			List<Persona> publicadores = new ArrayList<>();
+			
+			seguidores.add(this.usuarioLogueado.getPersona());//corresponde a la persona que inicio sesión
+			publicadores.add(personaADejarDeSeguir);//persona que se selecciona. Publicador a quien sigo y ya no quiero seguir más
+			
+			this.seguidorService.dejarDeSeguir(seguidores, publicadores);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	//Getters & Setters -> Es de las variables que se usarán en la vista
 	public List<Persona> getPersonas() {
