@@ -81,8 +81,13 @@ public class SeguirBean implements Serializable {
 			
 			
 			this.seguidorService.registrarPublicadoresSeguidores(seguidores, publicadores);
+			personaASeguir.setEsSeguido(true);//Una mejor forma en vez de usar el finally que recarga toda la lista -> actualizamos la lista de seguidos para que se oculte o muestre el botón de "Seguir" y "Dejar de seguir"
 		} catch (Exception e) {
 			e.printStackTrace();
+//		} finally {
+//			//actualizamos la lista de seguidos para que se oculte o muestre el botón de "Seguir" y "Dejar de seguir"
+//			this.listarSeguidos();
+//			this.listarPersonas();
 		}
 	}
 	
@@ -98,8 +103,13 @@ public class SeguirBean implements Serializable {
 			publicadores.add(personaADejarDeSeguir);//persona que se selecciona. Publicador a quien sigo y ya no quiero seguir más
 			
 			this.seguidorService.dejarDeSeguir(seguidores, publicadores);
+			personaADejarDeSeguir.setEsSeguido(false);//Una mejor forma en vez de usar el finally que recarga toda la lista -> actualizamos la lista de seguidos para que se oculte o muestre el botón de "Seguir" y "Dejar de seguir"
 		} catch (Exception e) {
 			e.printStackTrace();
+//		} finally {
+//			//actualizamos la lista de seguidos para que se oculte o muestre el botón de "Seguir" y "Dejar de seguir"
+//			this.listarSeguidos();
+//			this.listarPersonas();
 		}
 	}
 
