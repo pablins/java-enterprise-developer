@@ -11,31 +11,39 @@
 			<h:form>
 				<p:growl id="msg" showDetail="true" autoUpdate="true"/>
 				
-				<p:panelGrid columns="1">
-					<p:repeat value="#{meSigueBean.seguidores}" var="e">
-						<h:panelGrid columns="2">
-							<p:graphicImage value="/imagen/#{e.seguidor.id}" width="32" height="32" rendered="#{e.publicador.id != 0}"/>
-							
-							<p:outputPanel>
-								<p:panelGrid columns="2" cellpadding="5">
-									<h:outputText value="Publicador:" />
-									<h:outputText value="#{e.seguidor.nombres} #{e.seguidor.apellidos}" />
-									
-									<h:outputText value="País: " />
-									<h:outputText value="#{e.seguidor.pais}" />
-									
-									<h:outputText value="Desde: "/>
-									<h:outputText value="#{e.fecha}">
-										<f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
-									</h:outputText>
-								</p:panelGrid>
-							</p:outputPanel>
-							
-						</h:panelGrid>
+				<p:dataScroller value="#{meSigueBean.seguidores}" var="e" chunkSize="2">
+					<!--
+		            <f:facet name="header">
+		                Scroll abajo para cargar más seguidores
+		            </f:facet>
+		            -->
+		            
+		             <f:facet name="loader">
+		                <p:commandButton type="button" value="Ver más" icon="ui-icon-arrowrefresh-1-e"/>
+		            </f:facet>
+		
+		            <h:panelGrid columns="2">
+						<p:graphicImage value="/imagen/#{e.seguidor.id}" width="32" height="32" rendered="#{e.publicador.id != 0}"/>
 						
-						<hr/>
-					</p:repeat>
-				</p:panelGrid>
+						<p:outputPanel>
+							<p:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Publicador:" />
+								<h:outputText value="#{e.seguidor.nombres} #{e.seguidor.apellidos}" />
+								
+								<h:outputText value="País: " />
+								<h:outputText value="#{e.seguidor.pais}" />
+								
+								<h:outputText value="Desde: "/>
+								<h:outputText value="#{e.fecha}">
+									<f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
+								</h:outputText>
+							</p:panelGrid>
+						</p:outputPanel>
+							
+					</h:panelGrid>
+						
+					<hr/>
+		        </p:dataScroller>
 			
 			</h:form>
 		</ui:define>
