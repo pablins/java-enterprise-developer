@@ -9,6 +9,9 @@
 			<ui:define name="content">
 				<h1>¿A quién seguir?</h1>
 				<h:form>
+					<!-- Muestra mensajes emergentes (tipo notificacaiones) -->
+					<!-- showDetail=true -> Muestra el texto del mensaje -->
+					<!-- aoutoUpdate=true -> Automaticamente se muestra por cada petición ajax que genera primefaces -->
 					<p:growl id="msg" showDetail="true" autoUpdate="true"/>
 					
 					<p:dataGrid value="#{seguirBean.personas}" var="e" columns="3" layout="grid" rows="12" paginator="true"

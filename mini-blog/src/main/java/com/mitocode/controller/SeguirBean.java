@@ -15,6 +15,7 @@ import com.mitocode.model.PublicadorSeguidor;
 import com.mitocode.model.Usuario;
 import com.mitocode.service.IPersonaService;
 import com.mitocode.service.ISeguidorService;
+import com.mitocode.util.MensajeManager;
 
 @Named
 @ViewScoped
@@ -26,6 +27,9 @@ public class SeguirBean implements Serializable {
 	
 	@Inject
 	private ISeguidorService seguidorService;
+	
+	@Inject
+	private MensajeManager mensajeManager;
 	
 	//Atributos de la clase
 	private Usuario usuarioLogueado;
@@ -82,8 +86,11 @@ public class SeguirBean implements Serializable {
 			
 			this.seguidorService.registrarPublicadoresSeguidores(seguidores, publicadores);
 			personaASeguir.setEsSeguido(true);//Una mejor forma en vez de usar el finally que recarga toda la lista -> actualizamos la lista de seguidos para que se oculte o muestre el botón de "Seguir" y "Dejar de seguir"
+			
+			mensajeManager.mostrarMensaje("AVISO", String.format("¡Ahora sigues a %s!", personaASeguir.getNombres()), "INFO");
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensajeManager.mostrarMensaje("AVISO", "Error al seguir", "ERROR");
 //		} finally {
 //			//actualizamos la lista de seguidos para que se oculte o muestre el botón de "Seguir" y "Dejar de seguir"
 //			this.listarSeguidos();
@@ -104,8 +111,11 @@ public class SeguirBean implements Serializable {
 			
 			this.seguidorService.dejarDeSeguir(seguidores, publicadores);
 			personaADejarDeSeguir.setEsSeguido(false);//Una mejor forma en vez de usar el finally que recarga toda la lista -> actualizamos la lista de seguidos para que se oculte o muestre el botón de "Seguir" y "Dejar de seguir"
+			
+			mensajeManager.mostrarMensaje("AVISO", String.format("¡Dejaste de seguir a %s!", personaADejarDeSeguir.getNombres()), "INFO");
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensajeManager.mostrarMensaje("AVISO", "Error al dejar de seguir", "ERROR");
 //		} finally {
 //			//actualizamos la lista de seguidos para que se oculte o muestre el botón de "Seguir" y "Dejar de seguir"
 //			this.listarSeguidos();
