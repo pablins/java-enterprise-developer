@@ -45,8 +45,18 @@ public class SeguidorDAOImpl implements ISeguidorDAO, Serializable {
 
 	@Override
 	public List<PublicadorSeguidor> listarSeguidores(Persona persona) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<PublicadorSeguidor> lista = new ArrayList<>();
+		
+		try {
+			Query query = em.createQuery("FROM PublicadorSeguidor ps WHERE ps.publicador.id = ?1");
+			query.setParameter(1, persona.getId());
+			
+			lista = (List<PublicadorSeguidor>)query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return lista;
 	}
 
 	/*
