@@ -62,6 +62,9 @@ public class SeguirBean implements Serializable {
 			//obtenemos toda la lista de las personas
 			this.personas = personaService.listar();
 			
+			//removemos la persona que inició sesión de la lista (no la consideramos debido a que no es lógico que se siga a sí misma)
+			this.personas.remove(this.usuarioLogueado.getPersona());//para que funcione se debe sobreescribir el método equals and hashcode de la clase Persona, para que no compare referencia a memoria sino el criterio que se especifique
+			
 			//seteamos sí la persona ya la estamos siguiendo
 			this.personas.forEach(p -> {
 				this.seguidos.forEach(s -> {
