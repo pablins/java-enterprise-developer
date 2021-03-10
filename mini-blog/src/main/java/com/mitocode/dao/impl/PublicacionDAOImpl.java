@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import com.mitocode.dao.IPublicacionDAO;
 import com.mitocode.model.Persona;
 import com.mitocode.model.Publicacion;
+import com.mitocode.model.PublicadorSeguidor;
 
 @Stateless
 public class PublicacionDAOImpl implements IPublicacionDAO, Serializable {
@@ -79,8 +80,30 @@ public class PublicacionDAOImpl implements IPublicacionDAO, Serializable {
 
 	@Override
 	public List<Publicacion> listarPublicacionesDeSeguidores(Persona persona) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<PublicadorSeguidor> listaSeguidos = new ArrayList<>();
+		List<Publicacion> listaPublicaciones = new ArrayList<>();
+		
+		try {
+			//1- Consultamos los publicadores a los que seguimos
+			Query query = em.createQuery("FROM PublicadorSeguidor ps WHERE ps.seguidor.id = ?1");
+			query.setParameter(1, persona.getId());
+			
+			listaSeguidos = (List<PublicadorSeguidor>) query.getResultList();
+			
+			//2- Consultamos las publicaciones de cada uno de los publicadores que seguimos
+			listaSeguidos.forEach(ls -> {
+				Query q = em.createQuery("FROM Publicacion p WHERE p.publicador.id = ?1");
+				q.setParameter(1, ls.getPublicador().getId());
+				
+				List<Publicacion> lista = (List<Publicacion>) q.getResultList();
+				
+				listaPublicaciones.addAll(lista);
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listaPublicaciones;
 	}
 
 }
