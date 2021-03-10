@@ -32,5 +32,11 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
 	</context-param>
+	
+	<context-param>
+		<description>Para poder leer archivo de configuracion faces-config. Este era muy utilizado en versiones anteriores de JSF 2 (en la version JSF 2 este archivo era opcional). Usado para crear bean llamado 'now' a partir de java.util.Date</description>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/faces-config.xml</param-value>
+	</context-param>
 
 </web-app>

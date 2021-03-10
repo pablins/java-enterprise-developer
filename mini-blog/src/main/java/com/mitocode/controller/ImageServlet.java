@@ -44,6 +44,12 @@ public class ImageServlet extends HttpServlet {
 				persona = service.listarPorId(persona);//sobreescribimos el objeto persona con la inforamción recibida
 				
 				if(persona.getFoto() != null) {
+					//Parametros para que no se quede pegada la foto despues de actualizarla en el mantenedor de persona (además, se crea bean en faces-config y se llama desde la url que se le coloca en la página personas.xhtml, aunque en pruebas realizadas este parametro adicional no era tan necesario)
+					//Debido a que el navegador tiende a guardar en su cache la respuesta que ya tenía
+					resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");//HTTP 1.1
+					resp.setHeader("Pragma", "no-cache");//HTTP 1.0
+					resp.setDateHeader("Expires", 0);//Proxies
+					
 					resp.setContentType(getServletContext().getMimeType("image/jpg"));//establecemos el formato de la respuesta del archivo a devolver
 					resp.setContentLength(persona.getFoto().length);//tamaño de la foto
 					resp.getOutputStream().write(persona.getFoto());//escribimos la foto

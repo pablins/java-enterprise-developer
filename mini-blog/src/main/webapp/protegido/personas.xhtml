@@ -15,7 +15,8 @@
 					<!-- dejamos el oncomplete porque con el onclick se cierra el modal -->
 					<!-- colocamos immediate=true para que no haga las validaciones en el formulario del modal. Esto es debido a que estamos en un h:form entonces al intentar enviar una petición al back valida JSF intenta verificar los campos requeridos. Es decir, a este botón no le debe importar que sea validado los campos requeridos (dado que su fin es abrir un dialogo) -->
 					<!-- colocamos el process debido a que a veces se quedaba pegada la información del editar -->
-					<p:commandButton icon="ui-icon ui-icon-circle-plus" value="Nuevo" oncomplete="PF('wvDlg').show()" actionListener="#{personaBean.limpiarControles()}" update="idForm:idDialog" immediate="true" process="@this"/>
+					<!-- process=@this -> Solamente queremos que el botón se procese a sí mismo, sino se le dice se procesará todo el formulario y debido a que este tiene atributos required los intentará procesar y no lo dejará -->
+					<p:commandButton icon="ui-icon ui-icon-circle-plus" value="Nuevo" oncomplete="PF('wvDlg').show()" actionListener="#{personaBean.limpiarControles()}" update="idForm:idDialog" process="@this"/>
 					
 					<p:dataTable id="dt" value="#{personaBean.lista}" var="p"
 								 paginator="true" rows="5"
@@ -91,12 +92,13 @@
 							<!-- Al colocar un for en el outputLabel, el nombre del label del componente fileUpload queda con el nombre del outputLabel y no se le hace caso al label de fileUpload -->
 							<p:fileUpload id="fuFoto" fileUploadListener="#{personaBean.handleFileUpload}" mode="advanced" multiple="false" cancelLabel="Cancelar" uploadLabel="Subir" label="Examinar..."/>
 							<p:message for="fuFoto" display="icon"/>
-							
+
 							<!-- MOSTRAR IMAGEN -->
 							<!-- esta etiqueta es como un img de HTML la cual mostrará la imagen que se le pase en el atributo value, el cual funciona como un el atributo src -->
 							<!-- en este caso tendremos un servlet que responderá sobre la ruta "/imagen/#" para devolver la información de la imagen que coincida con el # del id que se pase como parametro -->
 							<!-- me tocó colocar un rendered cuando la foto no fuera nula, debido a que aparecia como si no se encontrará una foto, pero en el ejemplo no era necesario este atributo -->
-							<p:graphicImage id="img" rendered="#{not empty personaBean.persona.foto}" value="/imagen/#{personaBean.persona.id}" width="120" height="120"/>
+							<!-- Se le pasa el parametro '?tiempo=now.time' para que parezca una nueva peticion. Y pues la fecha actual se obtiene de un nuevo bean creado en el faces-config.xml que se asigno a partir de parametro en el web.xml -->
+							<h:graphicImage id="img" rendered="#{not empty personaBean.persona.foto}" value="/imagen/#{personaBean.persona.id}?tiempo=#{now.time}" width="120" height="120"/>
 							
 						</h:panelGrid>
 						
