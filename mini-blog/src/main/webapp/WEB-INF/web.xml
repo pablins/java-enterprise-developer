@@ -38,5 +38,18 @@
 		<param-name>javax.faces.CONFIG_FILES</param-name>
 		<param-value>/WEB-INF/faces-config.xml</param-value>
 	</context-param>
+	
+	<!-- Configuración para usar JSF SOCKETS - Implementación para JSF 2.3+ (antes no existía esta opción y tocaba con librarías de terceros como por ejemplo primefaces push) -->
+	<context-param>
+		<description>Habilitar el tema de inyección de dependencias en los sockets</description>
+		<param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description>Habilitamos el FakeEndpoint (clase que creamos en el package controller)</description>
+		<param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<!-- Fin Configuración para usar JSF SOCKETS -->
 
 </web-app>
