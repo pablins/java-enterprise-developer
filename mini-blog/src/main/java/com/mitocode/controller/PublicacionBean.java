@@ -23,6 +23,10 @@ public class PublicacionBean implements Serializable {
 	@Inject
 	private IPublicacionService service;
 	
+	//inyectamos el bean de push con el socket que hemos creado
+	@Inject
+	private PushBean pushBean;
+	
 	//Atributos de la clase
 	/*
 	 * información del usuario obtenido de la sesion
@@ -60,6 +64,9 @@ public class PublicacionBean implements Serializable {
 			this.publicacion.setPublicador(publicador);
 			
 			this.service.registrar(publicacion);
+			
+			//activamos el método de notificacion
+			pushBean.sendMessage();//Dispara el evento, dispara la notificación -> Abrirá el socket y buscará en qué página el socket está solicitando recibir el mensaje (es decir, será en principal.xthml)
 			
 		} catch (Exception e) {
 			e.printStackTrace();

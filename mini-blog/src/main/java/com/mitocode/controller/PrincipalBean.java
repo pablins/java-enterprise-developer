@@ -33,7 +33,7 @@ public class PrincipalBean implements Serializable {
 		this.listarPublicaciones();
 	}
 	
-	private void listarPublicaciones() {
+	public void listarPublicaciones() {
 		try {
 			publicaciones = publicacionService.listarPublicacionesDeSeguidores(usuarioLogueado.getPersona());
 		} catch (Exception e) {

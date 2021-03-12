@@ -8,8 +8,30 @@
 	<ui:composition template="/WEB-INF/templates/master.xhtml">
 			<ui:define name="content">
 				<h1>Mi Muro</h1>
-				<h:form>
+				<h:form id="idForm">
 					<p:growl id="msg" showDetail="true" autoUpdate="true"/>
+					
+					<!-- channel=notify -> Es el nombre del canal donde está transmitiendose datos, corresponde al asignado en pushBean -->
+					<!-- onmessage=mostrar -> Es el javascript que se llamará, corresponde a un script que se debe crear -->
+					<f:websocket channel="notify" onmessage="mostrar" />
+					
+					<!-- La función mostrar debe recibir 3 parametros. f-websocket le pasa internamente las variables -->
+					<!-- message -> Sí es que viene algo de PushBean -->
+					<!-- channel -> canal de transmisión -->
+					<!-- event -> El evento -->
+					<script type="text/javascript">
+						function mostrar(message, channel, event) {
+							//método que hará click en el botón oculto despues de un segundo de haberse invocado
+							//se hace el delay porque puede que se disparen muchas notificaciones y se cargue el socket
+							setTimeout(function(){
+								document.getElementById('idForm:hdnBtn').click();
+							}, 1000);
+						}
+					</script>
+					
+					<!-- truco de habilidades del programador -->
+					<!-- con el style ocultamos el botón, este botón lo que hace es consultar en la DB todas las publicaciones y actualiza el panel grid de publicaciones, de id=pg -->
+					<p:commandButton id="hdnBtn" actionListener="#{principalBean.listarPublicaciones()}" update="pg" style="display: none;"/>
 					
 					<h:panelGrid id="pg" columns="1">
 						<p:repeat value="#{principalBean.publicaciones}" var="p">
