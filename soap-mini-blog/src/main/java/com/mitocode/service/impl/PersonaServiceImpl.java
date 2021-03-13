@@ -7,10 +7,14 @@ import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.Style;
 
 import com.mitocode.service.IPersonaService;
 
 @WebService//marcamos la clase para ser usada como web service. Le indica al servidor que se está creando un servicio web y debe publicarlo en una dirección
+//El estilo por defecto es document. Además podrían cambiar algunas cositas de estructura pero en cuanto a uso es lo mismo
+//@SOAPBinding(style = Style.RPC)//Es como lo antiguito, con este estilo no soportaría el trabajo con objeto sino que solo acepta los tipos primitivos y listas. Se usa para compatibilidad con servicios que no tengan soporte a POO
 public class PersonaServiceImpl implements IPersonaService, Serializable {
 
 	@WebMethod//Le indica que es una operación del servicio
