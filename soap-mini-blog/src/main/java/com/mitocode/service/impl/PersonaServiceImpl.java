@@ -16,4 +16,10 @@ public class PersonaServiceImpl implements IPersonaService, Serializable {
 		return "Hola Coders!!!";
 	}
 
+	@WebMethod(operationName="saludar2")//establecemos un nombre dado que por defecto JAX-WS nos colocará el nombre del método y no pueden existir 2 operaciones con el mismo nombre
+	@Override
+	public String saludar(String nombre) {
+		return "Hola " + nombre;
+	}
+
 }
