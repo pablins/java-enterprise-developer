@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6343e8a7-295e-4429-b5d5-4632099160f2" activeEnvironment="Default" name="RolServiceImpl" soapui-version="5.6.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="730e2983-73fe-487e-904a-fc6b9c185b5c" wsaVersion="NONE" name="RolServiceImplServiceSoapBinding" type="wsdl" bindingName="{http://impl.service.mitocode.com/}RolServiceImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/soap-mini-blog/RolServiceImpl?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/soap-mini-blog/RolServiceImpl?wsdl"><con:part><con:url>http://localhost:8080/soap-mini-blog/RolServiceImpl?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="RolServiceImplService" targetNamespace="http://impl.service.mitocode.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://impl.service.mitocode.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://impl.service.mitocode.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="asignar" type="tns:asignar"/>
+      <xs:element name="asignarResponse" type="tns:asignarResponse"/>
+      <xs:element name="listar" type="tns:listar"/>
+      <xs:element name="listarPorId" type="tns:listarPorId"/>
+      <xs:element name="listarPorIdResponse" type="tns:listarPorIdResponse"/>
+      <xs:element name="listarResponse" type="tns:listarResponse"/>
+      <xs:element name="modificar" type="tns:modificar"/>
+      <xs:element name="modificarResponse" type="tns:modificarResponse"/>
+      <xs:element name="registrar" type="tns:registrar"/>
+      <xs:element name="registrarResponse" type="tns:registrarResponse"/>
+      <xs:complexType name="modificar">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:rol"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="rol">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:int"/>
+          <xs:element minOccurs="0" name="tipo" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="modificarResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="asignar">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:usuario"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="arg1" type="tns:rol"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="usuario">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
+          <xs:element minOccurs="0" name="estado" type="xs:string"/>
+          <xs:element minOccurs="0" name="id" type="xs:int"/>
+          <xs:element minOccurs="0" name="persona" type="tns:persona"/>
+          <xs:element minOccurs="0" name="usuario" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="persona">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="apellidos" type="xs:string"/>
+          <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+          <xs:element minOccurs="0" name="foto" type="xs:base64Binary"/>
+          <xs:element minOccurs="0" name="id" type="xs:int"/>
+          <xs:element minOccurs="0" name="nombres" type="xs:string"/>
+          <xs:element minOccurs="0" name="pais" type="xs:string"/>
+          <xs:element minOccurs="0" name="sexo" type="xs:string"/>
+          <xs:element minOccurs="0" name="usuario" type="tns:usuario"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="asignarResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="listar">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="listarResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:rol"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="listarPorId">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:rol"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="listarPorIdResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:rol"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="registrar">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:rol"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="registrarResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="listarPorIdResponse">
+    <wsdl:part element="tns:listarPorIdResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listar">
+    <wsdl:part element="tns:listar" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registrar">
+    <wsdl:part element="tns:registrar" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarResponse">
+    <wsdl:part element="tns:listarResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modificar">
+    <wsdl:part element="tns:modificar" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modificarResponse">
+    <wsdl:part element="tns:modificarResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="asignarResponse">
+    <wsdl:part element="tns:asignarResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="asignar">
+    <wsdl:part element="tns:asignar" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarPorId">
+    <wsdl:part element="tns:listarPorId" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registrarResponse">
+    <wsdl:part element="tns:registrarResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RolServiceImpl">
+    <wsdl:operation name="modificar">
+      <wsdl:input message="tns:modificar" name="modificar"></wsdl:input>
+      <wsdl:output message="tns:modificarResponse" name="modificarResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="asignar">
+      <wsdl:input message="tns:asignar" name="asignar"></wsdl:input>
+      <wsdl:output message="tns:asignarResponse" name="asignarResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listar">
+      <wsdl:input message="tns:listar" name="listar"></wsdl:input>
+      <wsdl:output message="tns:listarResponse" name="listarResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="listarPorId">
+      <wsdl:input message="tns:listarPorId" name="listarPorId"></wsdl:input>
+      <wsdl:output message="tns:listarPorIdResponse" name="listarPorIdResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="registrar">
+      <wsdl:input message="tns:registrar" name="registrar"></wsdl:input>
+      <wsdl:output message="tns:registrarResponse" name="registrarResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RolServiceImplServiceSoapBinding" type="tns:RolServiceImpl">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="modificar">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="modificar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="modificarResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="asignar">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="asignar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="asignarResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listar">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="listar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="listarResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="listarPorId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="listarPorId">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="listarPorIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="registrar">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="registrar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="registrarResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RolServiceImplService">
+    <wsdl:port binding="tns:RolServiceImplServiceSoapBinding" name="RolServiceImplPort">
+      <soap:address location="http://localhost:8080/soap-mini-blog/RolServiceImpl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/soap-mini-blog/RolServiceImpl</con:endpoint></con:endpoints><con:operation id="30a994e4-9e42-42d4-b554-a7c953b70d96" isOneWay="false" action="" name="asignar" bindingOperationName="asignar" type="Request-Response" outputName="asignarResponse" inputName="asignar" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8d783338-e421-45b6-ac21-538411e1642f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-mini-blog/RolServiceImpl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.mitocode.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <impl:asignar>\r
+         <!--Optional:-->\r
+         <arg0>\r
+            <!--Optional:-->\r
+            <contrasena>?</contrasena>\r
+            <!--Optional:-->\r
+            <estado>?</estado>\r
+            <!--Optional:-->\r
+            <id>?</id>\r
+            <!--Optional:-->\r
+            <persona>\r
+               <!--Optional:-->\r
+               <apellidos>?</apellidos>\r
+               <!--Optional:-->\r
+               <direccion>?</direccion>\r
+               <!--Optional:-->\r
+               <foto>cid:33974056006</foto>\r
+               <!--Optional:-->\r
+               <id>?</id>\r
+               <!--Optional:-->\r
+               <nombres>?</nombres>\r
+               <!--Optional:-->\r
+               <pais>?</pais>\r
+               <!--Optional:-->\r
+               <sexo>?</sexo>\r
+               <!--Optional:-->\r
+               <usuario/>\r
+            </persona>\r
+            <!--Optional:-->\r
+            <usuario>?</usuario>\r
+         </arg0>\r
+         <!--Zero or more repetitions:-->\r
+         <arg1>\r
+            <!--Optional:-->\r
+            <id>?</id>\r
+            <!--Optional:-->\r
+            <tipo>?</tipo>\r
+         </arg1>\r
+      </impl:asignar>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mitocode.com/RolServiceImpl/asignar"/></con:call></con:operation><con:operation id="c1e93f40-f631-43ec-9fb7-7c10e24a2508" isOneWay="false" action="" name="listar" bindingOperationName="listar" type="Request-Response" outputName="listarResponse" inputName="listar" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c22ae73d-295a-4304-8369-24d89d0879b6" name="RequestDefault"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-mini-blog/RolServiceImpl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.mitocode.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <impl:listar/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mitocode.com/RolServiceImpl/listar"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="569e57b0-2d3e-4a0d-beeb-f816bb39ccd3" isOneWay="false" action="" name="listarPorId" bindingOperationName="listarPorId" type="Request-Response" outputName="listarPorIdResponse" inputName="listarPorId" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b2b98535-8078-43ce-9620-59eb1b6a027b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-mini-blog/RolServiceImpl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.mitocode.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <impl:listarPorId>\r
+         <!--Optional:-->\r
+         <arg0>\r
+            <id>1</id>
+         </arg0>\r
+      </impl:listarPorId>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mitocode.com/RolServiceImpl/listarPorId"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="209d2157-3480-4ce0-804f-d6ab46819304" isOneWay="false" action="" name="modificar" bindingOperationName="modificar" type="Request-Response" outputName="modificarResponse" inputName="modificar" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d50512b0-41bd-46e0-bfdc-3daf89891cc9" name="RequestDefault"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-mini-blog/RolServiceImpl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.mitocode.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <impl:modificar>\r
+         <!--Optional:-->\r
+         <arg0>\r
+            <!--Optional:-->\r
+            <id>?</id>\r
+            <!--Optional:-->\r
+            <tipo>?</tipo>\r
+         </arg0>\r
+      </impl:modificar>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mitocode.com/RolServiceImpl/modificar"/></con:call><con:call id="2e9b83bd-71f9-4240-b895-ba1d4e44749c" name="EjemploModificar"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-mini-blog/RolServiceImpl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.mitocode.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <impl:modificar>\r
+         <arg0>\r
+            <id>3</id>\r
+            <tipo>DBAs</tipo>\r
+         </arg0>\r
+      </impl:modificar>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mitocode.com/RolServiceImpl/modificar"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="8a9599ed-1ce2-4985-974a-a2e52ece1b3c" isOneWay="false" action="" name="registrar" bindingOperationName="registrar" type="Request-Response" outputName="registrarResponse" inputName="registrar" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2b71122a-e482-4c6b-b156-0ea455599d7c" name="RequestDefault"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-mini-blog/RolServiceImpl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.mitocode.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <impl:registrar>\r
+         <!--Optional:-->\r
+         <arg0>\r
+            <!--Optional:-->\r
+            <id>?</id>\r
+            <!--Optional:-->\r
+            <tipo>?</tipo>\r
+         </arg0>\r
+      </impl:registrar>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mitocode.com/RolServiceImpl/registrar"/><con:wsrmConfig version="1.2"/></con:call><con:call id="2a5dbc4f-1e50-4c47-ab6b-d30633cf307e" name="EjemploRegistrar"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-mini-blog/RolServiceImpl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.mitocode.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <impl:registrar>\r
+         <arg0>\r
+            <tipo>DBA</tipo>\r
+         </arg0>\r
+      </impl:registrar>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mitocode.com/RolServiceImpl/registrar"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	
+	<!-- Usando datasource y EJB -->
+	<persistence-unit name="miniBlogPU" transaction-type="JTA">
+		<jta-data-source>java:/miniBlogDS</jta-data-source>
+		<!-- Nos evita el tener que declarar las entities en el tag 'class' -->
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		
+		<properties>
+			<!-- propertie para JEE, se puede create, none o drop-and-create -->
+			<!-- Lo dejaremos en none cuando ya estabilicemos el modelo y no queramos que se vuelvan a crear las tablas y se nos borre la data-->
+			<!-- Al estar en create y debido a que ya existen las tablas en la DB saldrán errores de advertencia informando que las tablas ya existen -->
+			<property name="javax.persistence.schema-generation.database.action" value="none"/>
+			<!-- Apenas levante la aplicación el persistence leera el archivo data.sql y ejecutará el script. Referencia al script que ejecutará -->
+			<!-- para que funcione 'schema-generation.database.action' no puede estar en none, debe estar en create o drop-and-create -->
+			<!-- Cuando no se quiera ejecutar el script se debe dejar el parametro en none, dado que podría ser que se replique muchas veces la información -->
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/data.sql"/>
+		</properties>	
+	</persistence-unit>
+	
+</persistence>
+	
+  
