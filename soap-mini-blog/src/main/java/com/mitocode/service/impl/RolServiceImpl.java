@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
@@ -91,21 +92,28 @@ public class RolServiceImpl implements IRolService, Serializable {
 		return dao.listarPorId(t);
 	}
 
+	@WebMethod(operationName = "op_asignar")
 	@Override
-	public Integer asignar(Usuario usuario, List<Rol> roles) {
+	public Integer asignar(@WebParam(name = "obj_usuario") Usuario usuario,
+							@WebParam(name = "rol") List<Rol> roles) {
 		
 		//En esta capa de servicio realizamos la transformación de negocio necesaria, con el fin de no sobrecargar el DAO haciendo lógica que no le corresponda
 		List<UsuarioRol> lstUsuarioRol = new ArrayList<>();
 		
-		roles.forEach(r -> {
-			UsuarioRol ur = new UsuarioRol();
-			ur.setUsuario(usuario);
-			ur.setRol(r);
-			lstUsuarioRol.add(ur);
-		});
+		try {
+			roles.forEach(r -> {
+				UsuarioRol ur = new UsuarioRol();
+				ur.setUsuario(usuario);
+				ur.setRol(r);
+				lstUsuarioRol.add(ur);
+			});
+			
+			dao.asignar(usuario, lstUsuarioRol);
+		} catch (Exception e) {
+			return 0;
+		}
 		
-		//Preparamos los datos que deben ser enviados al DAO
-		return dao.asignar(usuario, lstUsuarioRol);
+		return 1;
 	}
 
 }
