@@ -1,5 +1,8 @@
 package com.mitocode.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+//@XmlRootElement//importante para que pueda devolver un XML el API en el produces
 public class Persona {
 	
 	private int id;

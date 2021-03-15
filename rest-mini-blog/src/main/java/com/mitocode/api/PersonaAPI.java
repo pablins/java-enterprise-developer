@@ -22,6 +22,7 @@ public class PersonaAPI {
 	//Indicamos que produzca una salida en JSON
 	//Si no se hace obtendremos: Could not find MessageBodyWriter for response object of type: com.mitocode.model.Persona of media type: text/html;charset=UTF-8
 	@Produces("application/json")//puede ser json, xml o genericos como archivos, etc
+	//@Produces("application/xml")
 	public Persona ejemploRetornarObjeto() {
 		Persona persona = new Persona();
 		persona.setId(1);
