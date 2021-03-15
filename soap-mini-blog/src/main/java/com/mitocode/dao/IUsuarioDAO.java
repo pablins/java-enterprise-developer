@@ -8,8 +8,8 @@ import com.mitocode.model.Usuario;
 public interface IUsuarioDAO extends ICRUD<Usuario> {
 
 	//Lo hacemos con el fin de poder contrastar la clave del usuario que hay en la DB versus la clave que dijita el usuario en el campo de texto
-	String traerClaveHashed(String nameUsuario) throws Exception;
+	String traerClaveHashed(String nameUsuario);
 	
-	Usuario obtenerPorNombreUsuario(String nameUsuario) throws Exception;
+	Usuario obtenerPorNombreUsuario(String nameUsuario);
 	
 }

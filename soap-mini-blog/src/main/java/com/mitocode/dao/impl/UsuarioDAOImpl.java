@@ -66,7 +66,7 @@ public class UsuarioDAOImpl implements IUsuarioDAO, Serializable {
 	}
 
 	@Override
-	public String traerClaveHashed(String nameUsuario) throws Exception {
+	public String traerClaveHashed(String nameUsuario) {
 		Usuario usuario = null;
 		try {
 			Query query = em.createQuery("FROM Usuario u WHERE u.usuario = ?1");//Se quiere llegar a "SELECT u.contrasena FROM usuario u WHERE u.usuario = ''"
@@ -84,7 +84,7 @@ public class UsuarioDAOImpl implements IUsuarioDAO, Serializable {
 	}
 
 	@Override
-	public Usuario obtenerPorNombreUsuario(String nameUsuario) throws Exception {
+	public Usuario obtenerPorNombreUsuario(String nameUsuario) {
 		
 		Usuario usuario = new Usuario();
 		

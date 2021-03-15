@@ -39,7 +39,7 @@ public class UsuarioServiceImpl implements IUsuarioService, Serializable {
 	}
 
 	@Override
-	public Usuario login(Usuario usuario) throws Exception {
+	public Usuario login(Usuario usuario) {
 		String claveTextoPlano = usuario.getContrasena();//Clave que diligenció el usuario en el formulario
 		String claveHash = dao.traerClaveHashed(usuario.getUsuario());//Clave que existe en la DB para el nombre de usuario
 		
